@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Heart, Plus } from 'lucide-react';
+import { Eye, Heart, Plus, ShoppingBag } from 'lucide-react';
 import type { Product } from '../../data/types';
 import { useShop } from '../../context/ShopContext';
 import { cx, stockState } from '../../lib/format';
@@ -45,12 +45,22 @@ export function ProductCard({ product: p, sizes = '(min-width: 1024px) 25vw, (mi
           <Heart strokeWidth={1.7} />
         </button>
 
+        {/* Geniş kartta metinli butonlar; dar kartta (mobil, tablet listeleme) yuvarlak ikon butonlar.
+            Etiket her durumda erişilebilir ad olarak kalır. */}
         <div className={s.actions}>
-          <button type="button" className="btn btn--light btn--sm" onClick={() => setQuickView(p)}>
-            Hızlı incele
+          <button type="button" className={cx('btn btn--light btn--sm', s.action)} onClick={() => setQuickView(p)} title="Hızlı incele">
+            <Eye className={s.actionIcon} strokeWidth={1.7} aria-hidden="true" />
+            <span className={s.actionLabel}>Hızlı incele</span>
           </button>
-          <button type="button" className="btn btn--primary btn--sm" onClick={() => addToCart(p.id)} disabled={soldOut}>
-            {soldOut ? 'Tükendi' : 'Sepete ekle'}
+          <button
+            type="button"
+            className={cx('btn btn--primary btn--sm', s.action)}
+            onClick={() => addToCart(p.id)}
+            disabled={soldOut}
+            title={soldOut ? 'Tükendi' : 'Sepete ekle'}
+          >
+            <ShoppingBag className={s.actionIcon} strokeWidth={1.7} aria-hidden="true" />
+            <span className={s.actionLabel}>{soldOut ? 'Tükendi' : 'Sepete ekle'}</span>
           </button>
         </div>
 

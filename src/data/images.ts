@@ -18,7 +18,6 @@ const unsplash = {
   jarCandleButterfly: '1724408906332-fcca9380b68b',
   jarCandleLeaves: '1653919198320-7141a1920dcc',
   candleJarsPeach: '1643122966676-29e8597257f7',
-  pinkTaper: '1637160641839-179b426af51d',
   soapStackWhite: '1607006344152-62699f97b42c',
   soapBarsLinen: '1618840152526-92682643af2d',
   soapMarble: '1607006344380-b6775a0824a7',

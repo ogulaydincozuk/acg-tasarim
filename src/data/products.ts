@@ -157,7 +157,7 @@ export const PRODUCTS: Product[] = [
     subcategory: 'Silikon Mum Kalıbı',
     price: 265,
     image: 'archCandle',
-    images: ['archCandle', 'pinkTaper', 'decorShelf'],
+    images: ['archCandle', 'decorShelf', 'candleJarsPeach'],
     badge: 'cok-satan',
     rating: 4.9,
     reviewCount: 212,

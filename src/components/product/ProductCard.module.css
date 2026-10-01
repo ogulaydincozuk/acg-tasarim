@@ -11,6 +11,8 @@
   overflow: hidden;
   background: var(--color-well);
   isolation: isolate;
+  /* Hover butonları ekran değil kart genişliğine göre uyarlanır */
+  container: card-media / inline-size;
 }
 
 .mediaLink {
@@ -97,6 +99,42 @@
 .actions :global(.btn) {
   padding: 0 10px;
   font-size: var(--fs-xs);
+}
+
+.actionIcon {
+  display: none;
+}
+
+/* Dar kart: iki metinli buton sığmaz → sağ altta yuvarlak ikon butonlar */
+@container card-media (max-width: 259px) {
+  .actions {
+    left: auto;
+    right: 10px;
+    bottom: 10px;
+    grid-template-columns: auto auto;
+  }
+
+  .actions .action {
+    width: 38px;
+    min-height: 38px;
+    height: 38px;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: var(--shadow-xs);
+  }
+
+  .actionIcon {
+    display: block;
+  }
+
+  .actionLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
 }
 
 .quickAdd {

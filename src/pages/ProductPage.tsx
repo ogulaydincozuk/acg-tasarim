@@ -118,13 +118,15 @@ function ProductView({ product: p }: { product: Product }) {
 
             <dl className={s.facts}>
               <div>
-                <dt>Ölçü</dt>
+                <dt>{p.category === 'setler' ? 'İçerik' : p.category === 'hammaddeler' ? 'Miktar' : 'Ölçü'}</dt>
                 <dd>{p.size}</dd>
               </div>
-              <div>
-                <dt>{p.category === 'kaliplar' ? 'Malzeme' : 'Tip'}</dt>
-                <dd>{p.specs[0]?.value}</dd>
-              </div>
+              {p.specs[0] && (
+                <div>
+                  <dt>{p.specs[0].label}</dt>
+                  <dd>{p.specs[0].value}</dd>
+                </div>
+              )}
               <div className={s.factWide}>
                 <dt>Kullanım</dt>
                 <dd>

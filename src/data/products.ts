@@ -5,13 +5,19 @@ import type { Product, Spec } from './types';
  * Fiyat, stok, puan ve yorum sayıları örnektir; gerçek değerleri yansıtmaz.
  */
 
-const moldSpecs = (extra: Spec[] = []): Spec[] => [
-  { label: 'Malzeme', value: 'Platin kürlü silikon' },
-  { label: 'Sertlik', value: 'Shore 15A — esnek, kolay çıkarma' },
-  { label: 'Isı dayanımı', value: '-40 °C / +220 °C' },
-  { label: 'Yüzey', value: 'Parlak, yüksek detay aktarımı' },
-  ...extra,
-];
+/** Ortak kalıp özellikleri; aynı etiketli ek özellik varsayılanın yerine geçer (tekrar etmez). */
+const moldSpecs = (extra: Spec[] = []): Spec[] => {
+  const base: Spec[] = [
+    { label: 'Malzeme', value: 'Platin kürlü silikon' },
+    { label: 'Sertlik', value: 'Shore 15A — esnek, kolay çıkarma' },
+    { label: 'Isı dayanımı', value: '-40 °C / +220 °C' },
+    { label: 'Yüzey', value: 'Parlak, yüksek detay aktarımı' },
+  ];
+  return [
+    ...base.map((b) => extra.find((e) => e.label === b.label) ?? b),
+    ...extra.filter((e) => !base.some((b) => b.label === e.label)),
+  ];
+};
 
 export const MOLD_CARE =
   'Her kullanımdan sonra ılık su ve sıvı sabunla yıkayıp kurulayın. Keskin aletlerle temas ettirmeyin; güneş görmeyen bir yerde düz şekilde saklayın.';

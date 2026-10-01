@@ -10,7 +10,8 @@
   margin-bottom: 0;
 }
 
-.head > a {
+.head > a,
+.head > button {
   flex: none;
   margin-bottom: 4px;
 }

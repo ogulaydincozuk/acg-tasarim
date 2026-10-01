@@ -26,6 +26,8 @@ interface ShopState {
   cartCount: number;
   cartTotal: number;
   addToCart: (id: string, qty?: number) => void;
+  /** Birden çok ürünü tek seferde ekler, tek bildirim gösterir */
+  addManyToCart: (ids: string[]) => void;
   setQty: (id: string, qty: number) => void;
   removeFromCart: (id: string) => void;
 
@@ -80,20 +82,50 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     toastTimer.current = window.setTimeout(() => setToast(null), 4200);
   }, []);
 
+  /** Stok sınırını gözeterek ekler; kaç farklı ürünün gerçekten eklendiğini döndürür. */
+  const addItems = useCallback(
+    (items: { id: string; qty: number }[]) => {
+      const next = [...cart];
+      let addedProducts = 0;
+      let limited = false;
+      for (const { id, qty } of items) {
+        const product = PRODUCT_BY_ID.get(id);
+        if (!product || product.stock <= 0) continue;
+        const index = next.findIndex((l) => l.id === id);
+        const current = index >= 0 ? next[index].qty : 0;
+        const target = Math.min(current + qty, product.stock);
+        if (target < current + qty) limited = true;
+        if (target === current) continue;
+        if (index >= 0) next[index] = { ...next[index], qty: target };
+        else next.push({ id, qty: target });
+        addedProducts += 1;
+      }
+      if (addedProducts) setCart(next);
+      return { addedProducts, limited };
+    },
+    [cart],
+  );
+
   const addToCart = useCallback(
     (id: string, qty = 1) => {
       const product = PRODUCT_BY_ID.get(id);
       if (!product || product.stock <= 0) return;
-      setCart((lines) => {
-        const existing = lines.find((l) => l.id === id);
-        if (existing) {
-          return lines.map((l) => (l.id === id ? { ...l, qty: Math.min(l.qty + qty, product.stock) } : l));
-        }
-        return [...lines, { id, qty: Math.min(qty, product.stock) }];
-      });
-      notify({ title: 'Sepete eklendi', product, action: 'cart' });
+      const { addedProducts, limited } = addItems([{ id, qty }]);
+      if (!addedProducts) notify({ title: `Stoktaki ${product.stock} adedin tamamı sepetinde`, product, action: 'cart' });
+      else notify({ title: limited ? 'Stok sınırı kadar eklendi' : 'Sepete eklendi', product, action: 'cart' });
     },
-    [notify],
+    [addItems, notify],
+  );
+
+  const addManyToCart = useCallback(
+    (ids: string[]) => {
+      const { addedProducts } = addItems(ids.map((id) => ({ id, qty: 1 })));
+      notify({
+        title: addedProducts ? `${addedProducts} ürün sepete eklendi` : 'Bu ürünler zaten stok sınırında',
+        action: 'cart',
+      });
+    },
+    [addItems, notify],
   );
 
   const setQty = useCallback((id: string, qty: number) => {
@@ -131,6 +163,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
       cartCount,
       cartTotal,
       addToCart,
+      addManyToCart,
       setQty,
       removeFromCart,
       favorites,
@@ -158,6 +191,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     quickView,
     toast,
     addToCart,
+    addManyToCart,
     setQty,
     removeFromCart,
     toggleFavorite,

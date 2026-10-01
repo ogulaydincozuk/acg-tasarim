@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { ChevronDown, Headphones, RotateCcw, ShieldCheck, Truck } from 'lucide-react';
 import { STORE } from '../../data/content';
 import { useMediaQuery } from '../../hooks/useUi';
+import { useShop } from '../../context/ShopContext';
 import { InstagramIcon, PinterestIcon, TiktokIcon, YoutubeIcon } from '../icons/SocialIcons';
 import { Logo } from './Logo';
 import s from './Footer.module.css';
@@ -56,18 +57,18 @@ const TRUST = [
 /* PLACEHOLDER: ödeme sağlayıcı logoları sözleşme sonrası resmi görsellerle değiştirilecek */
 const PAYMENTS = ['VISA', 'Mastercard', 'troy', 'iyzico'];
 
-/* PLACEHOLDER: sosyal medya hesap adresleri */
 const SOCIAL = [
-  { label: 'Instagram', icon: InstagramIcon, href: '#' },
-  { label: 'YouTube', icon: YoutubeIcon, href: '#' },
-  { label: 'TikTok', icon: TiktokIcon, href: '#' },
-  { label: 'Pinterest', icon: PinterestIcon, href: '#' },
+  { label: 'Instagram', icon: InstagramIcon, href: STORE.social.instagram },
+  { label: 'YouTube', icon: YoutubeIcon, href: STORE.social.youtube },
+  { label: 'TikTok', icon: TiktokIcon, href: STORE.social.tiktok },
+  { label: 'Pinterest', icon: PinterestIcon, href: STORE.social.pinterest },
 ];
 
 export function Footer() {
   const year = new Date().getFullYear();
   // Mobilde kolonlar akordeon olarak kapalı başlar
   const desktop = useMediaQuery('(min-width: 768px)');
+  const { notify } = useShop();
   return (
     <footer className={s.footer}>
       <div className={s.trust}>
@@ -92,9 +93,15 @@ export function Footer() {
             <ul className={s.social}>
               {SOCIAL.map(({ label, icon: Icon, href }) => (
                 <li key={label}>
-                  <a href={href} aria-label={label}>
-                    <Icon />
-                  </a>
+                  {href ? (
+                    <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label}>
+                      <Icon />
+                    </a>
+                  ) : (
+                    <button type="button" aria-label={label} onClick={() => notify({ title: `${label} hesabı yakında eklenecek` })}>
+                      <Icon />
+                    </button>
+                  )}
                 </li>
               ))}
             </ul>

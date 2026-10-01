@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { CREATIONS } from '../data/content';
+import { CREATIONS, STORE } from '../data/content';
+import { useShop } from '../context/ShopContext';
 import { PRODUCT_BY_ID } from '../data/products';
 import { SectionHeader } from '../components/ui/SectionHeader';
 import { Img } from '../components/ui/Img';
@@ -15,6 +16,8 @@ import s from './Creations.module.css';
  * ürüne bağlanır (alışverişe dönüş).
  */
 export function Creations() {
+  const { notify } = useShop();
+  const instagram = STORE.social.instagram;
   return (
     <section className="section" aria-labelledby="creations-title">
       <div className="container">
@@ -26,11 +29,17 @@ export function Creations() {
             description="Kalıplarımız ve hammaddelerimizle üretilen çalışmalar. Sen de #acgileuret etiketiyle paylaş, burada yer al."
             className={s.header}
           />
-          {/* PLACEHOLDER: resmi Instagram hesabı bağlantısı */}
-          <a href="#" className="btn btn--secondary btn--md">
-            <InstagramIcon />
-            Instagram’da takip et
-          </a>
+          {instagram ? (
+            <a href={instagram} target="_blank" rel="noopener noreferrer" className="btn btn--secondary btn--md">
+              <InstagramIcon />
+              Instagram’da takip et
+            </a>
+          ) : (
+            <button type="button" className="btn btn--secondary btn--md" onClick={() => notify({ title: 'Instagram hesabı yakında eklenecek' })}>
+              <InstagramIcon />
+              Instagram’da takip et
+            </button>
+          )}
         </div>
         <ul className={s.grid}>
           {CREATIONS.map((c, i) => {

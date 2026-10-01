@@ -55,6 +55,11 @@
   stroke-width: 3;
 }
 
+.title .info {
+  background: var(--color-well);
+  stroke-width: 2.4;
+}
+
 .name {
   font-size: var(--fs-xs);
   color: var(--color-text-secondary);

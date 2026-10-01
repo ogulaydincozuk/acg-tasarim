@@ -27,7 +27,7 @@ const STEPS = [
 export function GuidePage() {
   const { slug } = useParams();
   const guide = GUIDES.find((g) => g.slug === slug);
-  const { addToCart } = useShop();
+  const { addManyToCart } = useShop();
   usePageTitle(guide?.title);
   if (!guide) return <NotFoundPage />;
 
@@ -91,7 +91,7 @@ export function GuidePage() {
             <span>Toplam</span>
             <strong className="price">{formatPrice(total)}</strong>
           </div>
-          <button type="button" className="btn btn--primary btn--block" onClick={() => products.forEach((p) => p.stock > 0 && addToCart(p.id))}>
+          <button type="button" className="btn btn--primary btn--block" onClick={() => addManyToCart(products.map((p) => p.id))}>
             <ShoppingBag aria-hidden="true" />
             Tümünü sepete ekle
           </button>

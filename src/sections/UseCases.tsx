@@ -42,7 +42,7 @@ function ProductMini({ product, onAdd, className }: { product: Product; onAdd: (
 export function UseCases({ product, usages, eyebrow = 'ACG’ye özel', title = 'Bu kalıpla ne yapabilirsin?', showProduct = true }: UseCasesProps) {
   const cases = usages.map((u) => USE_CASES[u]).filter(Boolean);
   const [active, setActive] = useState(0);
-  const { addToCart } = useShop();
+  const { addToCart, addManyToCart } = useShop();
   const uid = useId();
   const current = cases[active];
   if (!current) return null;
@@ -123,7 +123,7 @@ export function UseCases({ product, usages, eyebrow = 'ACG’ye özel', title = 
                     <button
                       type="button"
                       className="btn btn--secondary btn--md"
-                      onClick={() => materials.forEach((m) => m.stock > 0 && addToCart(m.id))}
+                      onClick={() => addManyToCart(materials.map((m) => m.id))}
                     >
                       Tümünü sepete ekle
                     </button>

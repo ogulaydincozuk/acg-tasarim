@@ -1,4 +1,4 @@
-import { Check, X } from 'lucide-react';
+import { Check, Info, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useShop } from '../../context/ShopContext';
 import { Img } from '../ui/Img';
@@ -14,12 +14,12 @@ export function Toast() {
           {toast.product && <Img image={toast.product.image} alt="" ratio={1} sizes="56px" maxWidth={320} className={s.thumb} />}
           <div className={s.text}>
             <p className={s.title}>
-              <Check aria-hidden="true" />
+              {toast.action ? <Check aria-hidden="true" /> : <Info aria-hidden="true" className={s.info} />}
               {toast.title}
             </p>
             {toast.product && <p className={s.name}>{toast.product.name}</p>}
           </div>
-          {toast.action === 'cart' ? (
+          {toast.action === 'cart' && (
             <button
               type="button"
               className="btn btn--primary btn--sm"
@@ -30,7 +30,8 @@ export function Toast() {
             >
               Sepeti gör
             </button>
-          ) : (
+          )}
+          {toast.action === 'favorites' && (
             <Link to="/favoriler" className="btn btn--secondary btn--sm" onClick={dismissToast}>
               Favoriler
             </Link>

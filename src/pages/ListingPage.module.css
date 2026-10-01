@@ -515,14 +515,20 @@
 
   .toolbar {
     position: sticky;
-    top: 0;
+    top: var(--header-h);
     z-index: 5;
+    transition: top var(--dur-slow) var(--ease);
     margin-inline: calc(var(--gutter) * -1);
     padding: 8px var(--gutter);
     background: var(--color-bg);
     box-shadow: 0 1px 0 var(--color-line);
   }
 
+}
+
+/* Header aşağı kaydırırken gizlenince çubuk en üste yapışır */
+:global(html[data-header-hidden]) .toolbar {
+  top: 0;
 }
 
 @media (max-width: 639px) {

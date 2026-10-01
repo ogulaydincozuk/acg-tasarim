@@ -14,6 +14,8 @@ export const STORE = {
   email: 'merhaba@acgtasarim.com',
   address: 'İzmir, Türkiye',
   hours: 'Hafta içi 09:00 – 18:00',
+  /** PLACEHOLDER: hesap adresleri girildiğinde ikonlar doğrudan profile gider (boşsa bilgi mesajı gösterilir) */
+  social: { instagram: '', youtube: '', tiktok: '', pinterest: '' } as Record<'instagram' | 'youtube' | 'tiktok' | 'pinterest', string>,
 };
 
 /* --------------------------------------------------------------------------

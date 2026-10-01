@@ -83,12 +83,18 @@ export function Header() {
     hoverTimer.current = window.setTimeout(() => setOpenMega(label), delay);
   };
 
+  const headerHidden = hidden && !openMega && !menuOpen;
+  // Yapışkan alt çubuklar (ör. mobil filtre) header'ın açık/gizli durumuna göre konumlansın
+  useEffect(() => {
+    document.documentElement.toggleAttribute('data-header-hidden', headerHidden);
+  }, [headerHidden]);
+
   const active = MAIN_NAV.find((n) => n.label === openMega);
 
   return (
     <>
       <header
-        className={cx(s.header, scrolled && s.scrolled, hidden && !openMega && !menuOpen && s.hidden)}
+        className={cx(s.header, scrolled && s.scrolled, headerHidden && s.hidden)}
         onMouseLeave={() => scheduleMega(null, 180)}
       >
         <div className={cx('container', s.inner)}>

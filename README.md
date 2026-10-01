@@ -54,11 +54,11 @@ Taupe (`#8C8179`) küçük metinde WCAG AA kontrastını karşılamadığı içi
 Kodda `PLACEHOLDER` olarak işaretlendi:
 
 - **Görseller:** `src/data/images.ts` — Unsplash stok fotoğrafları (önizleme amaçlı). ACG'nin kendi çekimleri (aynı ışık, aynı zemin, 4:5 kadraj) gelince yalnızca bu dosya güncellenir.
-- **Mağaza bilgileri:** `src/data/content.ts` → `STORE` (kargo eşiği, süreler, iletişim).
+- **Mağaza bilgileri:** `src/data/content.ts` → `STORE` (kargo eşiği, süreler, iletişim, sosyal medya hesapları — adres girilene kadar ikonlar "yakında" bilgisi gösterir).
 - **Ürün verisi:** `src/data/products.ts` — fiyat, stok, puan ve yorum sayıları örnektir.
 - **ACG ile Üretenler:** stok görsel; kullanıcı adı/yorum uydurulmadı.
 - **Yorumlar:** puan özeti + "örnek yorum alanı"; gerçek yorum sistemi V2.
-- **Footer:** sosyal medya bağlantıları, ödeme logoları, güven mesajları.
+- **Footer:** ödeme logoları ve güven mesajları.
 
 ## V2'ye bırakılanlar
 

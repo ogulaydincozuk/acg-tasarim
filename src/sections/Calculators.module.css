@@ -123,14 +123,11 @@
   font-weight: var(--fw-semibold);
   font-variant-numeric: tabular-nums;
   transition: border-color var(--dur) var(--ease);
-  -moz-appearance: textfield;
-  appearance: textfield;
 }
 
-.inputWrap input::-webkit-outer-spin-button,
-.inputWrap input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+.inputWrap input::placeholder {
+  color: var(--color-text-muted);
+  font-weight: var(--fw-regular);
 }
 
 .inputWrap input:focus {

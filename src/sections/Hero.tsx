@@ -4,17 +4,20 @@ import { PRODUCT_BY_ID } from '../data/products';
 import { POPULAR_SEARCHES } from '../data/content';
 import { Img } from '../components/ui/Img';
 import { formatPrice } from '../lib/format';
+import { useMediaQuery } from '../hooks/useUi';
 import s from './Hero.module.css';
 
 export function Hero() {
-  const tagged = PRODUCT_BY_ID.get('p-005')!;
+  // Mobil/tablet: kolaj yerine tek, yatay kadraja uygun görsel ve onunla eşleşen ürün etiketi
+  const compact = useMediaQuery('(max-width: 1023px)');
+  const tagged = PRODUCT_BY_ID.get(compact ? 's-01' : 'p-005')!;
   return (
     <section className={s.hero} aria-labelledby="hero-title">
       <div className={`container ${s.grid}`}>
         <div className={s.copy}>
           <span className="eyebrow">Kalıp · Hammadde · Üretim bilgisi</span>
           <h1 id="hero-title" className={s.title}>
-            Hayalindeki tasarımı <em>üret.</em>
+            Hayalindeki tasarımı <em>üret</em>.
           </h1>
           <p className={s.lead}>Profesyonel üretim için kalıplar, hammaddeler ve ihtiyaç duyduğun malzemeler tek yerde.</p>
           <div className={s.ctas}>
@@ -41,7 +44,11 @@ export function Hero() {
         <div className={s.visual}>
           <span className={s.shape} aria-hidden="true" />
           <figure className={s.main}>
-            <Img image="archCandle" alt="Gökkuşağı kemer kalıbıyla dökülmüş krem rengi dekoratif mum" ratio={4 / 5} sizes="(min-width: 1024px) 34vw, 70vw" priority maxWidth={1080} />
+            {compact ? (
+              <Img image="candleJarsPeach" alt="Şeftali zeminde soya wax ile dökülmüş kavanoz mumlar" ratio={16 / 10} sizes="100vw" priority maxWidth={1400} />
+            ) : (
+              <Img image="archCandle" alt="Gökkuşağı kemer kalıbıyla dökülmüş krem rengi dekoratif mum" ratio={4 / 5} sizes="34vw" priority maxWidth={1080} />
+            )}
             <Link to={`/urun/${tagged.slug}`} className={s.tag}>
               <span className={s.tagDot} aria-hidden="true" />
               <span className={s.tagText}>
@@ -51,10 +58,12 @@ export function Hero() {
               <ArrowRight aria-hidden="true" />
             </Link>
           </figure>
-          <div className={s.side}>
-            <Img image="bubblePink" alt="Pudra pembe kabarcık mum ve kalp mum" ratio={1} sizes="(min-width: 1024px) 18vw, 30vw" priority maxWidth={640} className={s.sideImg} />
-            <Img image="donutVase" alt="Halka formlu minimal vazo" ratio={1} sizes="(min-width: 1024px) 18vw, 30vw" priority maxWidth={640} className={s.sideImg} />
-          </div>
+          {!compact && (
+            <div className={s.side}>
+              <Img image="bubblePink" alt="Pudra pembe kabarcık mum ve kalp mum" ratio={1} sizes="(min-width: 1024px) 18vw, 30vw" priority maxWidth={640} className={s.sideImg} />
+              <Img image="donutVase" alt="Halka formlu minimal vazo" ratio={1} sizes="(min-width: 1024px) 18vw, 30vw" priority maxWidth={640} className={s.sideImg} />
+            </div>
+          )}
         </div>
       </div>
     </section>

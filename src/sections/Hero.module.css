@@ -24,14 +24,14 @@
   max-width: 11ch;
 }
 
-/* Vurgu kelimesi: italik yerine pudra alt çizgi bandı */
+/* Vurgu kelimesi: harflere değmeyen, altında duran ince pudra çizgi */
 .title em {
   font-style: normal;
-  background-image: linear-gradient(var(--color-brand-soft), var(--color-brand-soft));
-  background-repeat: no-repeat;
-  background-size: 100% 0.32em;
-  background-position: 0 88%;
-  padding-inline: 0.04em;
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-brand);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.16em;
+  text-decoration-skip-ink: none;
 }
 
 .lead {
@@ -166,19 +166,44 @@
   text-overflow: ellipsis;
 }
 
+/* Mobil & tablet: kolaj yerine metnin üstünde tek görsel */
 @media (max-width: 1023px) {
   .grid {
     grid-template-columns: 1fr;
+    gap: var(--space-6);
   }
 
   .title {
     max-width: 14ch;
   }
+
+  .visual {
+    order: -1;
+    display: block;
+  }
+
+  .shape,
+  .side {
+    display: none;
+  }
+
+  /* görselin boş (üst) alanına */
+  .tag {
+    top: 12px;
+    left: 12px;
+    right: auto;
+    bottom: auto;
+    max-width: calc(100% - 24px);
+  }
 }
 
 @media (max-width: 639px) {
   .hero {
-    padding-top: var(--space-6);
+    padding-top: var(--space-4);
+  }
+
+  .grid {
+    gap: var(--space-5);
   }
 
   .copy {
@@ -194,20 +219,14 @@
     width: 100%;
   }
 
-  .visual {
-    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-    margin-inline: calc(var(--gutter) * -0.25);
-  }
-
-  .side {
-    padding-bottom: 0;
+  .main > span:first-child {
+    border-radius: var(--radius-md);
   }
 
   .tag {
+    top: 10px;
     left: 10px;
-    right: 10px;
-    bottom: 10px;
-    max-width: none;
+    max-width: calc(100% - 20px);
     padding: 8px 10px;
   }
 }

@@ -20,12 +20,18 @@ const ICONS: Record<CalculatorMeta['id'], typeof Calculator> = {
 };
 
 type Values = Record<string, number>;
+/** Alanlar metin olarak tutulur: boş bırakılabilir, başa "0" eklenmez, virgüllü ondalık yazılabilir */
+type RawValues = Record<string, string>;
+
+const toNumber = (raw: string) => {
+  const n = parseFloat(raw.replace(',', '.'));
+  return Number.isFinite(n) ? n : 0;
+};
 
 interface FieldDef {
   key: string;
   label: string;
   unit: string;
-  step?: number;
 }
 
 const FIELDS: Record<CalculatorMeta['id'], { fields: FieldDef[]; defaults: Values }> = {
@@ -127,17 +133,23 @@ function compute(id: CalculatorMeta['id'], v: Values): { main: string; mainLabel
 
 export function Calculators() {
   const [activeId, setActiveId] = useState<CalculatorMeta['id']>('maliyet');
-  const [values, setValues] = useState<Record<string, Values>>(() =>
-    Object.fromEntries(Object.entries(FIELDS).map(([k, f]) => [k, { ...f.defaults }])),
+  const [values, setValues] = useState<Record<string, RawValues>>(() =>
+    Object.fromEntries(
+      Object.entries(FIELDS).map(([k, f]) => [k, Object.fromEntries(Object.entries(f.defaults).map(([fk, v]) => [fk, String(v).replace('.', ',')]))]),
+    ),
   );
   const uid = useId();
   const active = CALCULATORS.find((c) => c.id === activeId)!;
   const current = values[activeId];
-  const result = useMemo(() => compute(activeId, current), [activeId, current]);
+  const result = useMemo(
+    () => compute(activeId, Object.fromEntries(Object.entries(current).map(([k, v]) => [k, toNumber(v)]))),
+    [activeId, current],
+  );
 
   const update = (key: string, raw: string) => {
-    const n = Number(raw.replace(',', '.'));
-    setValues((all) => ({ ...all, [activeId]: { ...all[activeId], [key]: Number.isFinite(n) ? Math.max(0, n) : 0 } }));
+    // Yalnızca rakam ve tek bir ondalık ayırıcı (virgül veya nokta)
+    const cleaned = raw.replace(/[^\d.,]/g, '').replace(/([.,].*)[.,]/g, '$1');
+    setValues((all) => ({ ...all, [activeId]: { ...all[activeId], [key]: cleaned } }));
   };
 
   return (
@@ -196,10 +208,10 @@ export function Calculators() {
                     <span className={s.fieldLabel}>{f.label}</span>
                     <span className={s.inputWrap}>
                       <input
-                        type="number"
+                        type="text"
                         inputMode="decimal"
-                        min={0}
-                        step={f.step ?? 1}
+                        autoComplete="off"
+                        placeholder="0"
                         value={current[f.key]}
                         onChange={(e) => update(f.key, e.target.value)}
                       />

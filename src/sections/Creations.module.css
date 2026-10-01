@@ -1,0 +1,135 @@
+.head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-6);
+  margin-bottom: clamp(1.75rem, 1.3rem + 1.6vw, 3rem);
+}
+
+.header {
+  margin-bottom: 0;
+}
+
+.head > a {
+  flex: none;
+  margin-bottom: 4px;
+}
+
+/* 5 kolon: büyük kare (2×2) + 6 küçük kare — 7 karo, iki sıra */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.5rem, 0.3rem + 0.8vw, 1rem);
+}
+
+.tile {
+  position: relative;
+  min-width: 0;
+}
+
+.big {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 2;
+}
+
+.link {
+  display: block;
+  height: 100%;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.img {
+  height: 100%;
+}
+
+.img img {
+  transition:
+    opacity var(--dur-slow) var(--ease),
+    transform 700ms var(--ease);
+}
+
+.overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 40px 16px 14px;
+  background: linear-gradient(to top, rgb(48 48 46 / 0.62), transparent);
+  color: var(--color-on-dark);
+  opacity: 0;
+  transform: translateY(6px);
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+}
+
+.used {
+  font-size: var(--fs-2xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+.product {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.product svg {
+  width: 15px;
+  height: 15px;
+}
+
+.link:hover .overlay,
+.link:focus-visible .overlay {
+  opacity: 1;
+  transform: none;
+}
+
+.link:hover .img img {
+  transform: scale(1.03);
+}
+
+@media (hover: none) {
+  .overlay {
+    opacity: 1;
+    transform: none;
+    padding: 32px 10px 10px;
+  }
+
+  .used {
+    display: none;
+  }
+
+  .product {
+    font-size: var(--fs-xs);
+  }
+}
+
+@media (max-width: 767px) {
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .big {
+    grid-column: 1 / -1;
+    grid-row: auto;
+  }
+
+  .big .img {
+    aspect-ratio: 4 / 3;
+  }
+}

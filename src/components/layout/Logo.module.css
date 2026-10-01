@@ -1,0 +1,23 @@
+.logo {
+  display: inline-flex;
+  flex: none;
+}
+
+.logo img {
+  width: auto;
+  height: 100%;
+}
+
+.lockup {
+  height: 62px;
+}
+
+.badge {
+  height: 104px;
+}
+
+@media (max-width: 1023px) {
+  .lockup {
+    height: 46px;
+  }
+}

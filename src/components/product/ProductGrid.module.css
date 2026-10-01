@@ -1,0 +1,108 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(2rem, 1.6rem + 1.4vw, 3rem) clamp(0.75rem, 0.4rem + 1.2vw, 1.5rem);
+}
+
+.three {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 639px) {
+  .grid,
+  .three {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: 12px;
+    row-gap: 28px;
+  }
+}
+
+/* — Rail — */
+.rail {
+  position: relative;
+  container-type: inline-size;
+}
+
+.track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 3 * 24px) / 4);
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: 0;
+}
+
+.slide {
+  scroll-snap-align: start;
+  min-width: 0;
+}
+
+.nav {
+  position: absolute;
+  /* görsel alanının (4:5) dikey ortası */
+  top: calc((100cqw - 72px) / 4 * 1.25 / 2 - 22px);
+  left: -22px;
+  right: -22px;
+  display: flex;
+  justify-content: space-between;
+  pointer-events: none;
+}
+
+.nav button {
+  pointer-events: auto;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+  transition:
+    opacity var(--dur) var(--ease),
+    transform var(--dur) var(--ease);
+}
+
+.nav button:hover:not(:disabled) {
+  transform: scale(1.05);
+}
+
+.nav button:disabled {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.nav svg {
+  width: 20px;
+  height: 20px;
+}
+
+@media (max-width: 1023px) {
+  .track {
+    grid-auto-columns: calc((100% - 2 * 16px) / 2.6);
+    gap: 16px;
+    /* taşan kartlar ekran kenarına kadar uzansın */
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+  }
+
+  .nav {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .track {
+    grid-auto-columns: 62%;
+    gap: 12px;
+  }
+}

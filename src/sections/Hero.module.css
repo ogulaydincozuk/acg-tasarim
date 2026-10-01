@@ -1,0 +1,213 @@
+.hero {
+  padding-block: clamp(1.5rem, 0.8rem + 2.6vw, 3.25rem) clamp(3rem, 2rem + 3vw, 5rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  align-items: center;
+  gap: clamp(2rem, 1rem + 4vw, 5rem);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--space-6);
+}
+
+.title {
+  font-size: var(--fs-display);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.035em;
+  font-weight: var(--fw-semibold);
+  max-width: 11ch;
+}
+
+/* Vurgu kelimesi: italik yerine pudra alt çizgi bandı */
+.title em {
+  font-style: normal;
+  background-image: linear-gradient(var(--color-brand-soft), var(--color-brand-soft));
+  background-repeat: no-repeat;
+  background-size: 100% 0.32em;
+  background-position: 0 88%;
+  padding-inline: 0.04em;
+}
+
+.lead {
+  max-width: 40ch;
+  font-size: clamp(1rem, 0.94rem + 0.3vw, 1.1875rem);
+  color: var(--color-text-secondary);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.popular {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  font-size: var(--fs-xs);
+  color: var(--color-text-secondary);
+}
+
+.popular ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.popular a {
+  color: var(--color-text);
+  font-weight: var(--fw-medium);
+  text-decoration: underline;
+  text-decoration-color: var(--color-line-strong);
+  text-underline-offset: 4px;
+  transition: text-decoration-color var(--dur) var(--ease);
+}
+
+.popular a:hover {
+  text-decoration-color: var(--color-text);
+}
+
+/* — Görsel kompozisyon — */
+.visual {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(0.75rem, 0.4rem + 1vw, 1.25rem);
+}
+
+/* Logodaki organik formdan esinlenen yumuşak zemin şekli */
+.shape {
+  position: absolute;
+  z-index: -1;
+  top: -6%;
+  right: -4%;
+  width: 62%;
+  aspect-ratio: 1.15;
+  background: var(--color-brand-tint);
+  border-radius: 58% 42% 46% 54% / 52% 44% 56% 48%;
+}
+
+.main {
+  position: relative;
+  margin: 0;
+}
+
+.main > span:first-child {
+  border-radius: var(--radius-lg);
+}
+
+.side {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.75rem, 0.4rem + 1vw, 1.25rem);
+  /* hafif kaydırılmış (stagger) kompozisyon */
+  margin-bottom: 9%;
+}
+
+.sideImg {
+  border-radius: var(--radius-lg);
+}
+
+.tag {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: calc(100% - 32px);
+  padding: 10px 14px 10px 12px;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+  box-shadow: var(--shadow-sm);
+  font-size: var(--fs-xs);
+  transition: transform var(--dur) var(--ease);
+}
+
+.tag:hover {
+  transform: translateY(-2px);
+}
+
+.tag > svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+}
+
+.tagDot {
+  width: 10px;
+  height: 10px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--color-brand);
+  box-shadow: 0 0 0 4px var(--color-brand-tint);
+}
+
+.tagText {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.tagName {
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (max-width: 1023px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .title {
+    max-width: 14ch;
+  }
+}
+
+@media (max-width: 639px) {
+  .hero {
+    padding-top: var(--space-6);
+  }
+
+  .copy {
+    gap: var(--space-5);
+  }
+
+  .ctas {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .ctas :global(.btn) {
+    width: 100%;
+  }
+
+  .visual {
+    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
+    margin-inline: calc(var(--gutter) * -0.25);
+  }
+
+  .side {
+    padding-bottom: 0;
+  }
+
+  .tag {
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    max-width: none;
+    padding: 8px 10px;
+  }
+}

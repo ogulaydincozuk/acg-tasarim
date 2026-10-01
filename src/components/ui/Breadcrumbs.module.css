@@ -1,0 +1,37 @@
+.root ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 0;
+  font-size: var(--fs-xs);
+  color: var(--color-text-secondary);
+}
+
+.root li {
+  display: inline-flex;
+  align-items: center;
+  min-width: 0;
+}
+
+.root li + li::before {
+  content: '/';
+  margin: 0 10px;
+  color: var(--color-line-strong);
+}
+
+.root a {
+  transition: color var(--dur) var(--ease);
+}
+
+.root a:hover {
+  color: var(--color-text);
+}
+
+.root [aria-current] {
+  color: var(--color-text);
+  font-weight: var(--fw-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 48ch;
+}

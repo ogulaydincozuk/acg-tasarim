@@ -1,0 +1,148 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  padding: var(--space-4) var(--space-5) var(--space-10);
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  height: 48px;
+  padding: 0 var(--space-4);
+  border-radius: 10px;
+  background: var(--color-well);
+  color: var(--color-text-secondary);
+  font-size: var(--fs-sm);
+  text-align: left;
+}
+
+.search svg {
+  width: 18px;
+  height: 18px;
+  color: var(--color-text);
+}
+
+.list > li {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+  font-size: var(--fs-body);
+  font-weight: var(--fw-medium);
+  cursor: pointer;
+  list-style: none;
+}
+
+.row::-webkit-details-marker {
+  display: none;
+}
+
+.chev {
+  width: 18px;
+  height: 18px;
+  color: var(--color-text-secondary);
+  transition: transform var(--dur) var(--ease);
+}
+
+.group[open] .chev {
+  transform: rotate(180deg);
+}
+
+.accent::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  vertical-align: middle;
+}
+
+.sub {
+  display: grid;
+  gap: var(--space-5);
+  padding: var(--space-1) 0 var(--space-5);
+}
+
+.sub ul {
+  display: grid;
+  gap: 2px;
+}
+
+.sub a {
+  display: block;
+  padding: 8px 0;
+  font-size: var(--fs-sm);
+  color: var(--color-text);
+}
+
+.subTitle {
+  margin-bottom: var(--space-2);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-eyebrow);
+  text-transform: uppercase;
+  color: var(--color-text-secondary);
+}
+
+.crafts ul {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--space-3);
+  margin-top: var(--space-2);
+}
+
+.craft {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+}
+
+.craftImg {
+  border-radius: var(--radius-sm);
+}
+
+.account {
+  display: grid;
+  gap: 2px;
+  padding-top: var(--space-2);
+}
+
+.account a {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  min-height: 44px;
+  font-size: var(--fs-sm);
+}
+
+.account svg {
+  width: 18px;
+  height: 18px;
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--color-brand);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-bold);
+}
+
+.contact {
+  font-size: var(--fs-xs);
+  color: var(--color-text-secondary);
+}

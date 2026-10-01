@@ -1,0 +1,177 @@
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState, type ReactNode } from 'react';
+import { PRODUCT_BY_ID } from '../data/products';
+import type { Product } from '../data/types';
+import { readStorage, writeStorage } from '../lib/storage';
+
+/**
+ * Önizleme için istemci tarafı mağaza durumu: sepet, favoriler, son aramalar
+ * ve global katmanlar (arama, sepet çekmecesi, hızlı inceleme, bildirim).
+ * V2'de sepet/favori sunucuya taşınırken bileşen API'si aynı kalabilir.
+ */
+
+export interface CartLine {
+  id: string;
+  qty: number;
+}
+
+export interface Toast {
+  id: number;
+  title: string;
+  product?: Product;
+  action?: 'cart' | 'favorites';
+}
+
+interface ShopState {
+  cart: CartLine[];
+  cartCount: number;
+  cartTotal: number;
+  addToCart: (id: string, qty?: number) => void;
+  setQty: (id: string, qty: number) => void;
+  removeFromCart: (id: string) => void;
+
+  favorites: string[];
+  isFavorite: (id: string) => boolean;
+  toggleFavorite: (id: string) => void;
+
+  recentSearches: string[];
+  pushRecentSearch: (q: string) => void;
+  removeRecentSearch: (q: string) => void;
+
+  searchOpen: boolean;
+  setSearchOpen: (open: boolean) => void;
+  cartOpen: boolean;
+  setCartOpen: (open: boolean) => void;
+  quickView: Product | null;
+  setQuickView: (p: Product | null) => void;
+
+  toast: Toast | null;
+  notify: (toast: Omit<Toast, 'id'>) => void;
+  dismissToast: () => void;
+}
+
+const ShopContext = createContext<ShopState | null>(null);
+
+const KEYS = { cart: 'acg.cart', fav: 'acg.favorites', recent: 'acg.recentSearches' };
+
+export function ShopProvider({ children }: { children: ReactNode }) {
+  const [cart, setCart] = useState<CartLine[]>(() =>
+    readStorage<CartLine[]>(KEYS.cart, []).filter((l) => PRODUCT_BY_ID.has(l.id)),
+  );
+  const [favorites, setFavorites] = useState<string[]>(() => readStorage<string[]>(KEYS.fav, []));
+  const [recentSearches, setRecent] = useState<string[]>(() => readStorage<string[]>(KEYS.recent, []));
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [quickView, setQuickView] = useState<Product | null>(null);
+  const [toast, setToast] = useState<Toast | null>(null);
+  const toastTimer = useRef<number | undefined>(undefined);
+
+  useEffect(() => writeStorage(KEYS.cart, cart), [cart]);
+  useEffect(() => writeStorage(KEYS.fav, favorites), [favorites]);
+  useEffect(() => writeStorage(KEYS.recent, recentSearches), [recentSearches]);
+
+  const dismissToast = useCallback(() => {
+    window.clearTimeout(toastTimer.current);
+    setToast(null);
+  }, []);
+
+  const notify = useCallback((t: Omit<Toast, 'id'>) => {
+    window.clearTimeout(toastTimer.current);
+    setToast({ ...t, id: Date.now() });
+    toastTimer.current = window.setTimeout(() => setToast(null), 4200);
+  }, []);
+
+  const addToCart = useCallback(
+    (id: string, qty = 1) => {
+      const product = PRODUCT_BY_ID.get(id);
+      if (!product || product.stock <= 0) return;
+      setCart((lines) => {
+        const existing = lines.find((l) => l.id === id);
+        if (existing) {
+          return lines.map((l) => (l.id === id ? { ...l, qty: Math.min(l.qty + qty, product.stock) } : l));
+        }
+        return [...lines, { id, qty: Math.min(qty, product.stock) }];
+      });
+      notify({ title: 'Sepete eklendi', product, action: 'cart' });
+    },
+    [notify],
+  );
+
+  const setQty = useCallback((id: string, qty: number) => {
+    const max = PRODUCT_BY_ID.get(id)?.stock ?? 99;
+    setCart((lines) =>
+      qty <= 0 ? lines.filter((l) => l.id !== id) : lines.map((l) => (l.id === id ? { ...l, qty: Math.min(qty, max) } : l)),
+    );
+  }, []);
+
+  const removeFromCart = useCallback((id: string) => setCart((lines) => lines.filter((l) => l.id !== id)), []);
+
+  const toggleFavorite = useCallback(
+    (id: string) => {
+      const has = favorites.includes(id);
+      setFavorites((ids) => (has ? ids.filter((x) => x !== id) : [id, ...ids.filter((x) => x !== id)]));
+      const product = PRODUCT_BY_ID.get(id);
+      if (!has && product) notify({ title: 'Favorilere eklendi', product, action: 'favorites' });
+    },
+    [favorites, notify],
+  );
+
+  const pushRecentSearch = useCallback((q: string) => {
+    const term = q.trim();
+    if (!term) return;
+    setRecent((list) => [term, ...list.filter((x) => x.toLocaleLowerCase('tr') !== term.toLocaleLowerCase('tr'))].slice(0, 6));
+  }, []);
+
+  const removeRecentSearch = useCallback((q: string) => setRecent((list) => list.filter((x) => x !== q)), []);
+
+  const value = useMemo<ShopState>(() => {
+    const cartCount = cart.reduce((n, l) => n + l.qty, 0);
+    const cartTotal = cart.reduce((sum, l) => sum + (PRODUCT_BY_ID.get(l.id)?.price ?? 0) * l.qty, 0);
+    return {
+      cart,
+      cartCount,
+      cartTotal,
+      addToCart,
+      setQty,
+      removeFromCart,
+      favorites,
+      isFavorite: (id) => favorites.includes(id),
+      toggleFavorite,
+      recentSearches,
+      pushRecentSearch,
+      removeRecentSearch,
+      searchOpen,
+      setSearchOpen,
+      cartOpen,
+      setCartOpen,
+      quickView,
+      setQuickView,
+      toast,
+      notify,
+      dismissToast,
+    };
+  }, [
+    cart,
+    favorites,
+    recentSearches,
+    searchOpen,
+    cartOpen,
+    quickView,
+    toast,
+    addToCart,
+    setQty,
+    removeFromCart,
+    toggleFavorite,
+    pushRecentSearch,
+    removeRecentSearch,
+    notify,
+    dismissToast,
+  ]);
+
+  return <ShopContext.Provider value={value}>{children}</ShopContext.Provider>;
+}
+
+export function useShop() {
+  const ctx = useContext(ShopContext);
+  if (!ctx) throw new Error('useShop must be used inside <ShopProvider>');
+  return ctx;
+}

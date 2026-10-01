@@ -1,0 +1,561 @@
+.page {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-section);
+}
+
+/* — Başlık — */
+.head {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-8) 0 var(--space-8);
+}
+
+.titleRow {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-4);
+}
+
+.title {
+  font-size: var(--fs-h1);
+}
+
+.total {
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+}
+
+.desc {
+  max-width: 60ch;
+  color: var(--color-text-secondary);
+}
+
+.searchForm {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 560px;
+  margin-top: var(--space-2);
+}
+
+.searchForm > svg {
+  position: absolute;
+  left: 14px;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.searchForm input {
+  flex: 1;
+  height: 48px;
+  padding: 0 96px 0 42px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  background: var(--color-surface);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.searchForm input:focus {
+  border-color: var(--color-text);
+  outline: none;
+}
+
+.searchForm :global(.btn) {
+  position: absolute;
+  right: 5px;
+}
+
+.quick {
+  margin-top: var(--space-3);
+}
+
+.quick ul {
+  display: flex;
+  gap: var(--space-2);
+  overflow-x: auto;
+}
+
+.quickLink {
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 16px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  white-space: nowrap;
+  transition:
+    border-color var(--dur) var(--ease),
+    background-color var(--dur) var(--ease);
+}
+
+.quickLink:hover {
+  border-color: var(--color-text);
+  background: var(--color-surface);
+}
+
+.quickActive,
+.quickActive:hover {
+  border-color: var(--color-text);
+  background: var(--color-text);
+  color: var(--color-on-dark);
+}
+
+/* — Yerleşim — */
+.layout {
+  display: grid;
+  grid-template-columns: 252px minmax(0, 1fr);
+  gap: clamp(1.5rem, 0.5rem + 2.5vw, 3.5rem);
+  align-items: start;
+}
+
+.sidebar {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  max-height: calc(100dvh - var(--header-h) - 48px);
+  overflow-y: auto;
+  padding-right: var(--space-2);
+  scrollbar-width: thin;
+}
+
+.sidebarHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-text);
+}
+
+.sidebarTitle {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.clear {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* — Filtre grupları — */
+.group {
+  border-bottom: 1px solid var(--color-line);
+}
+
+.group summary {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 52px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  list-style: none;
+}
+
+.group summary::-webkit-details-marker {
+  display: none;
+}
+
+.group summary svg {
+  width: 16px;
+  height: 16px;
+  margin-left: auto;
+  color: var(--color-text-secondary);
+  transition: transform var(--dur) var(--ease);
+}
+
+.group[open] summary svg {
+  transform: rotate(180deg);
+}
+
+.groupCount {
+  display: grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--color-brand);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding-bottom: var(--space-4);
+}
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 36px;
+  font-size: var(--fs-sm);
+  cursor: pointer;
+}
+
+.option input {
+  position: absolute;
+  opacity: 0;
+  width: 1px;
+  height: 1px;
+}
+
+.box {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  flex: none;
+  border: 1.5px solid var(--color-line-strong);
+  border-radius: 5px;
+  background: var(--color-surface);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    border-color var(--dur-fast) var(--ease);
+}
+
+.box::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 1.5px;
+  width: 5px;
+  height: 9px;
+  border: solid var(--color-on-dark);
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg) scale(0);
+  transition: transform var(--dur-fast) var(--ease);
+}
+
+.option input:checked + .box {
+  background: var(--color-text);
+  border-color: var(--color-text);
+}
+
+.option input:checked + .box::after {
+  transform: rotate(45deg) scale(1);
+}
+
+.option input:focus-visible + .box,
+.option input:focus-visible ~ .switch {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.option:hover .box {
+  border-color: var(--color-text);
+}
+
+.optionLabel {
+  flex: 1;
+}
+
+.optionCount {
+  font-size: var(--fs-xs);
+  color: var(--color-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+
+.optionDisabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.switchRow {
+  gap: 10px;
+}
+
+.switch {
+  position: relative;
+  width: 34px;
+  height: 20px;
+  flex: none;
+  border-radius: 10px;
+  background: var(--color-line-strong);
+  transition: background-color var(--dur) var(--ease);
+}
+
+.switch::after {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--color-surface);
+  box-shadow: var(--shadow-xs);
+  transition: transform var(--dur) var(--ease);
+}
+
+.option input:checked ~ .switch {
+  background: var(--color-text);
+}
+
+.option input:checked ~ .switch::after {
+  transform: translateX(14px);
+}
+
+/* — Araç çubuğu — */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  min-height: 48px;
+  margin-bottom: var(--space-5);
+}
+
+.filterBtn {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 14px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+}
+
+.filterBtn svg {
+  width: 17px;
+  height: 17px;
+}
+
+.filterCount {
+  display: grid;
+  place-items: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 10px;
+  background: var(--color-brand);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+}
+
+.sort {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+  font-size: var(--fs-sm);
+}
+
+.sortLabel {
+  color: var(--color-text-secondary);
+}
+
+.sort select {
+  height: 42px;
+  padding: 0 34px 0 12px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: 10px;
+  background: var(--color-surface);
+  font-weight: var(--fw-semibold);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.sort select:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.sort > svg {
+  position: absolute;
+  right: 12px;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+}
+
+/* — Aktif filtre çipleri — */
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: calc(var(--space-2) * -1) 0 var(--space-6);
+}
+
+.chips button {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 32px;
+  padding: 0 10px 0 12px;
+  border-radius: var(--radius-sm);
+  background: var(--color-brand-tint);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  transition: background-color var(--dur) var(--ease);
+}
+
+.chips button:hover {
+  background: var(--color-brand-soft);
+}
+
+.chips svg {
+  width: 13px;
+  height: 13px;
+}
+
+.chips .chipsClear {
+  background: none;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.chips .chipsClear:hover {
+  background: none;
+}
+
+/* — Daha fazla — */
+.more {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: var(--space-12);
+  font-size: var(--fs-sm);
+  color: var(--color-text-secondary);
+}
+
+.progress {
+  width: 200px;
+  height: 2px;
+  margin-bottom: var(--space-3);
+  background: var(--color-line);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--color-text);
+  transform-origin: left;
+  transition: transform var(--dur-slow) var(--ease);
+}
+
+/* — Boş durum — */
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-16) var(--space-6);
+  border-radius: var(--radius-lg);
+  background: var(--color-brand-wash);
+  text-align: center;
+}
+
+.emptyTitle {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-semibold);
+}
+
+.emptyText {
+  max-width: 44ch;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-secondary);
+}
+
+.suggest {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+}
+
+.suggest a {
+  display: inline-flex;
+  align-items: center;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--color-line-strong);
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-sm);
+  background: var(--color-surface);
+}
+
+/* — Mobil filtre çekmecesi — */
+.drawerBody {
+  padding: 0 var(--space-5) var(--space-4);
+}
+
+.drawerFoot {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: var(--space-3);
+}
+
+@media (max-width: 1023px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    display: none;
+  }
+
+  .filterBtn {
+    display: inline-flex;
+  }
+
+  .toolbar {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 8px var(--gutter);
+    background: var(--color-bg);
+    box-shadow: 0 1px 0 var(--color-line);
+  }
+
+}
+
+@media (max-width: 639px) {
+  .head {
+    padding: var(--space-5) 0 var(--space-5);
+  }
+
+  .quick {
+    margin-inline: calc(var(--gutter) * -1);
+  }
+
+  .quick ul {
+    padding-inline: var(--gutter);
+  }
+
+  .sortLabel {
+    display: none;
+  }
+
+  .toolbar {
+    gap: var(--space-2);
+  }
+
+  .filterBtn,
+  .sort {
+    flex: 1;
+  }
+
+  .filterBtn {
+    justify-content: center;
+  }
+
+  .sort select {
+    width: 100%;
+  }
+}

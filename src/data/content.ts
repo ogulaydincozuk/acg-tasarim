@@ -7,6 +7,8 @@ import type { Creation, UseCase, Usage } from './types';
    -------------------------------------------------------------------------- */
 export const STORE = {
   freeShippingThreshold: 3000,
+  /** PLACEHOLDER: ücretsiz kargo eşiğinin altındaki siparişlerde örnek kargo bedeli */
+  shippingFee: 89.9,
   announcement: ['3.000 TL üzeri ücretsiz kargo', 'Güvenli ödeme', 'Hızlı kargo'],
   shippingNote: 'Hafta içi 15:00’e kadar verilen siparişler aynı gün kargoya verilir.',
   returnNote: 'Kullanılmamış ürünlerde 14 gün içinde koşulsuz iade.',

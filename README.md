@@ -25,6 +25,11 @@ npm run preview    # dist/ çıktısını yerelde sunar
 | `#/kategori/kaliplar` | Listeleme: sol filtre (kategori, kullanım alanı, tema, boyut, fiyat, stok, yeni, çok satan), sıralama, aktif filtre çipleri, mobilde alttan açılan filtre paneli |
 | `#/kategori/{hammaddeler, setler, mum, kokulu-tas, boyama, dekorasyon, yeni-gelenler, kampanyalar}` | Aynı listeleme şablonu |
 | `#/arama?q=mum` | Arama sonuçları (+ header'daki arama paneli: son/popüler aramalar, kategori ve ürün önerileri) |
+| `#/sepet` | Sepet sayfası (DEMO): adet değiştirme, kargo ilerlemesi, sipariş özeti |
+| `#/odeme` | Ödeme (DEMO): iletişim, teslimat adresi, ödeme yöntemi seçimi, doğrulamalı form |
+| `#/siparis-onayi/{no}` | Sipariş onayı (DEMO): teslimat tahmini, adres, özet |
+| `#/giris` | Giriş / üye ol (DEMO) |
+| `#/hesap` | Hesabım (DEMO): profil ve demo siparişler |
 | `#/urun/{slug}` | Ürün detay: galeri, satın alma alanı, sekmeler (mobilde akordeon), "Bu ürünle ne yapabilirsin?", tamamlayıcı ve benzer ürünler, mobilde yapışkan sepet barı |
 
 ## Yapı
@@ -59,8 +64,19 @@ Kodda `PLACEHOLDER` olarak işaretlendi:
 - **Yorumlar:** puan özeti + "örnek yorum alanı"; gerçek yorum sistemi V2.
 - **Footer:** ödeme logoları ve güven mesajları.
 
+## Demo akışı (giriş · sepet · ödeme · sipariş onayı)
+
+Bu sayfalar yalnızca **demo**dur; hiçbir veri sunucuya gönderilmez:
+
+- Giriş/üye ol herhangi bir e-posta ve 6+ karakterlik değerle çalışır; şifre hiçbir yerde saklanmaz. "Demo hesabıyla devam et" tek tıkla girer.
+- Ödemede kart bilgisi **istenmez**; "Siparişi tamamla" ödemeyi başarılı sayar ve bir demo sipariş oluşturur.
+- Sepet, favoriler, demo kullanıcı ve demo siparişler yalnızca tarayıcının `localStorage` alanında tutulur. Hesap sayfasındaki "Demo verilerini temizle" kullanıcıyı ve siparişleri siler.
+- Kargo bedeli (`STORE.shippingFee`) ve teslimat süresi örnek değerlerdir.
+
+Gerçek sürüme geçerken `src/context/AccountContext.tsx` ve `src/pages/CheckoutPage.tsx` içindeki demo kısımları ödeme sağlayıcı ve backend ile değiştirilir; sayfa yerleşimi ve doğrulamalar aynen kullanılabilir.
+
 ## V2'ye bırakılanlar
 
-Ödeme, üyelik/giriş, sipariş, kargo entegrasyonu, ERP/stok API, kampanya motoru, admin paneli, gerçek yorum sistemi, Instagram API.
+Gerçek ödeme, üyelik/giriş, sipariş, kargo entegrasyonu, ERP/stok API, kampanya motoru, admin paneli, gerçek yorum sistemi, Instagram API.
 
 Üretimde, 4.000+ ürün ve SEO için sunucu tarafı render (ör. Next.js) ve bir arama servisi (Meilisearch, Algolia vb.) önerilir; bileşenler ve veri modeli buna göre ayrıldı (filtre durumu URL'de, arama `lib/search.ts` arayüzünün arkasında).

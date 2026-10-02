@@ -37,12 +37,10 @@ export function FavoritesPage() {
 }
 
 /*
- * V1 kapsamı dışındaki sayfalar (hesap, sipariş takibi, kurumsal ve yasal metinler)
+ * V1 kapsamı dışındaki sayfalar (kurumsal ve yasal metinler)
  * için ortak bilgilendirme sayfası. Ölü bağlantı bırakmamak için kullanılır.
  */
 const INFO_TITLES: Record<string, string> = {
-  hesap: 'Hesabım',
-  'siparis-takibi': 'Sipariş takibi',
   'kargo-teslimat': 'Kargo & teslimat',
   'iade-degisim': 'İade & değişim',
   sss: 'Sıkça sorulan sorular',
@@ -55,9 +53,8 @@ const INFO_TITLES: Record<string, string> = {
   'mesafeli-satis': 'Mesafeli satış sözleşmesi',
 };
 
-export function InfoPage({ slugOverride }: { slugOverride?: string }) {
-  const params = useParams();
-  const slug = slugOverride ?? params.slug ?? '';
+export function InfoPage() {
+  const { slug = '' } = useParams();
   const title = INFO_TITLES[slug] ?? 'Sayfa';
   usePageTitle(title);
   return (

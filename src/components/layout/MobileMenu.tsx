@@ -3,12 +3,14 @@ import { ChevronDown, ChevronRight, Heart, Package, Search, User } from 'lucide-
 import { STORE } from '../../data/content';
 import { CRAFT_CATEGORIES, MAIN_NAV } from '../../data/taxonomy';
 import { useShop } from '../../context/ShopContext';
+import { useAccount } from '../../context/AccountContext';
 import { Drawer } from '../ui/Drawer';
 import { Img } from '../ui/Img';
 import s from './MobileMenu.module.css';
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const { setSearchOpen, favorites } = useShop();
+  const { user } = useAccount();
 
   return (
     <Drawer open={open} onClose={onClose} title="Menü" side="right" width={420}>
@@ -83,8 +85,8 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
 
         <ul className={s.account}>
           <li>
-            <Link to="/hesap" onClick={onClose}>
-              <User strokeWidth={1.6} aria-hidden="true" /> Giriş yap / Üye ol
+            <Link to={user ? '/hesap' : '/giris'} onClick={onClose}>
+              <User strokeWidth={1.6} aria-hidden="true" /> {user ? `Hesabım · ${user.name.split(/\s+/)[0]}` : 'Giriş yap / Üye ol'}
             </Link>
           </li>
           <li>
@@ -93,8 +95,8 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
             </Link>
           </li>
           <li>
-            <Link to="/sayfa/siparis-takibi" onClick={onClose}>
-              <Package strokeWidth={1.6} aria-hidden="true" /> Sipariş takibi
+            <Link to={user ? '/hesap#siparisler' : '/giris?next=/hesap'} onClick={onClose}>
+              <Package strokeWidth={1.6} aria-hidden="true" /> Siparişlerim
             </Link>
           </li>
         </ul>

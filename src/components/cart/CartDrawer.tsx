@@ -10,7 +10,7 @@ import { QuantityStepper } from '../ui/QuantityStepper';
 import s from './CartDrawer.module.css';
 
 export function CartDrawer() {
-  const { cart, cartOpen, setCartOpen, cartTotal, cartCount, setQty, removeFromCart, notify } = useShop();
+  const { cart, cartOpen, setCartOpen, cartTotal, cartCount, setQty, removeFromCart } = useShop();
   const close = () => setCartOpen(false);
   const remaining = Math.max(0, STORE.freeShippingThreshold - cartTotal);
   const progress = Math.min(1, cartTotal / STORE.freeShippingThreshold);
@@ -32,13 +32,12 @@ export function CartDrawer() {
               <strong className="price">{formatPrice(cartTotal)}</strong>
             </div>
             <p className={s.note}>Kargo ve indirimler ödeme adımında hesaplanır.</p>
-            <button
-              type="button"
-              className="btn btn--primary btn--block"
-              onClick={() => notify({ title: 'Ödeme adımı V2’de aktif olacak' })}
-            >
+            <Link to="/odeme" className="btn btn--primary btn--block" onClick={close}>
               Ödemeye geç
-            </button>
+            </Link>
+            <Link to="/sepet" className="btn btn--secondary btn--block" onClick={close}>
+              Sepeti görüntüle
+            </Link>
             <button type="button" className={s.continue} onClick={close}>
               Alışverişe devam et
             </button>

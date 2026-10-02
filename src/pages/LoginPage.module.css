@@ -1,0 +1,195 @@
+.page {
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-section);
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 1rem + 4vw, 6rem);
+  align-items: center;
+  max-width: 1080px;
+  margin-inline: auto;
+}
+
+/* — Sol: görsel panel — */
+.aside {
+  position: relative;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-brand-tint);
+}
+
+.asideImg {
+  display: block;
+  height: 100%;
+  min-height: 560px;
+}
+
+.asideText {
+  position: absolute;
+  left: var(--space-5);
+  right: var(--space-5);
+  bottom: var(--space-5);
+  padding: var(--space-6);
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--color-surface) 94%, transparent);
+}
+
+.asideTitle {
+  margin-bottom: var(--space-3);
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-semibold);
+  letter-spacing: -0.015em;
+}
+
+.asideText ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: var(--fs-sm);
+}
+
+.asideText li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.asideText svg {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  padding: 2px;
+  border-radius: 50%;
+  background: var(--color-brand-soft);
+  stroke-width: 3;
+}
+
+/* — Sağ: form kartı — */
+.card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.title {
+  font-size: var(--fs-h1);
+}
+
+.lead {
+  margin-top: 6px;
+  color: var(--color-text-secondary);
+}
+
+.tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: var(--space-6);
+  border-bottom: 1px solid var(--color-line);
+}
+
+.tab {
+  position: relative;
+  min-height: 48px;
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--color-text-secondary);
+  transition: color var(--dur) var(--ease);
+}
+
+.tab::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 2px;
+  background: var(--color-text);
+  transform: scaleX(0);
+  transition: transform var(--dur) var(--ease);
+}
+
+.tab:hover,
+.tabActive {
+  color: var(--color-text);
+}
+
+.tabActive::after {
+  transform: scaleX(1);
+}
+
+.demo {
+  margin-top: var(--space-5);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+}
+
+.passwordRow {
+  position: relative;
+}
+
+.passwordRow input {
+  padding-right: 52px;
+}
+
+.eye {
+  position: absolute;
+  right: 2px;
+  top: 26px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  color: var(--color-text-secondary);
+  transition: color var(--dur) var(--ease);
+}
+
+.eye:hover {
+  color: var(--color-text);
+}
+
+.eye svg {
+  width: 19px;
+  height: 19px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  margin: var(--space-5) 0;
+  font-size: var(--fs-xs);
+  color: var(--color-text-secondary);
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--color-line);
+}
+
+@media (max-width: 1023px) {
+  .layout {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+  }
+
+  .aside {
+    display: none;
+  }
+}
+
+@media (max-width: 639px) {
+  .page {
+    padding-top: var(--space-5);
+  }
+}

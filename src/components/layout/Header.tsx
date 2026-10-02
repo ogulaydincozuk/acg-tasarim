@@ -4,6 +4,7 @@ import { ArrowRight, ChevronDown, Heart, Menu, Search, ShoppingBag, User } from 
 import { STORE } from '../../data/content';
 import { MAIN_NAV, type NavItem } from '../../data/taxonomy';
 import { useShop } from '../../context/ShopContext';
+import { useAccount } from '../../context/AccountContext';
 import { useHeaderVisibility } from '../../hooks/useUi';
 import { cx } from '../../lib/format';
 import { Img } from '../ui/Img';
@@ -60,6 +61,7 @@ function MegaPanel({ item, id, onNavigate }: { item: NavItem; id: string; onNavi
 
 export function Header() {
   const { cartCount, favorites, setSearchOpen, setCartOpen } = useShop();
+  const { user } = useAccount();
   const { hidden, scrolled } = useHeaderVisibility();
   const [openMega, setOpenMega] = useState<string | null>(null);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -139,8 +141,9 @@ export function Header() {
             <button type="button" className={s.tool} onClick={() => setSearchOpen(true)} aria-label="Ara">
               <Search strokeWidth={1.6} />
             </button>
-            <Link to="/hesap" className={cx(s.tool, s.desktopOnly)} aria-label="Hesabım">
+            <Link to={user ? '/hesap' : '/giris'} className={cx(s.tool, s.desktopOnly)} aria-label={user ? `Hesabım (${user.name})` : 'Giriş yap'}>
               <User strokeWidth={1.6} />
+              {user && <span className={s.dot} aria-hidden="true" />}
             </Link>
             <Link to="/favoriler" className={cx(s.tool, s.desktopOnly)} aria-label={`Favoriler (${favorites.length})`}>
               <Heart strokeWidth={1.6} />

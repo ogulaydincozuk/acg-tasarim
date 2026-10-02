@@ -21,7 +21,8 @@ const COLUMNS: { title: string; links: { label: string; to: string }[] }[] = [
   {
     title: 'Yardım',
     links: [
-      { label: 'Sipariş takibi', to: '/sayfa/siparis-takibi' },
+      { label: 'Siparişlerim', to: '/hesap#siparisler' },
+      { label: 'Sepetim', to: '/sepet' },
       { label: 'Kargo & teslimat', to: '/sayfa/kargo-teslimat' },
       { label: 'İade & değişim', to: '/sayfa/iade-degisim' },
       { label: 'Sıkça sorulan sorular', to: '/sayfa/sss' },

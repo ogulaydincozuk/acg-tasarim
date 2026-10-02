@@ -201,6 +201,18 @@
   display: none;
 }
 
+/* giriş yapılmış hesap göstergesi */
+.dot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--color-brand);
+  box-shadow: 0 0 0 2px var(--color-bg);
+}
+
 /* — Mega menü — */
 .mega {
   position: absolute;

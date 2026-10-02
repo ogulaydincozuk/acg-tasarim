@@ -1,0 +1,26 @@
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: 12px 14px;
+  border-radius: var(--radius-md);
+  background: var(--color-brand-tint);
+  font-size: var(--fs-sm);
+  line-height: 1.45;
+}
+
+.tag {
+  flex: none;
+  padding: 3px 8px;
+  border-radius: var(--radius-xs);
+  background: var(--color-text);
+  color: var(--color-on-dark);
+  font-size: var(--fs-2xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.notice p {
+  margin-top: 1px;
+}

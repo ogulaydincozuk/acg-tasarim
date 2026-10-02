@@ -30,6 +30,7 @@ interface ShopState {
   addManyToCart: (ids: string[]) => void;
   setQty: (id: string, qty: number) => void;
   removeFromCart: (id: string) => void;
+  clearCart: () => void;
 
   favorites: string[];
   isFavorite: (id: string) => boolean;
@@ -139,6 +140,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const removeFromCart = useCallback((id: string) => setCart((lines) => lines.filter((l) => l.id !== id)), []);
+  const clearCart = useCallback(() => setCart([]), []);
 
   const toggleFavorite = useCallback(
     (id: string) => {
@@ -169,6 +171,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
       addManyToCart,
       setQty,
       removeFromCart,
+      clearCart,
       favorites,
       isFavorite: (id) => favorites.includes(id),
       toggleFavorite,
@@ -197,6 +200,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     addManyToCart,
     setQty,
     removeFromCart,
+    clearCart,
     toggleFavorite,
     pushRecentSearch,
     removeRecentSearch,

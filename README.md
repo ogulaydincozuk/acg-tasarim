@@ -2,7 +2,7 @@
 
 **Canlı önizleme:** https://ogulaydincozuk.github.io/acg-tasarim/
 
-Müşteriye gösterilecek frontend önizlemesi: ana sayfa, ürün listeleme, ürün detay, arama, sepet/favori akışı ve akademi rehberi. Backend, ödeme, üyelik ve gerçek stok V2/V3'e bırakıldı.
+Müşteriye gösterilecek frontend önizlemesi: ana sayfa, ürün listeleme, ürün detay, arama ve sepet/favori akışı. Backend, ödeme, üyelik ve gerçek stok V2/V3'e bırakıldı.
 
 ## Çalıştırma
 
@@ -21,12 +21,11 @@ npm run preview    # dist/ çıktısını yerelde sunar
 
 | Yol | İçerik |
 |---|---|
-| `#/` | Ana sayfa: hero, kategori keşfi, öne çıkanlar, "Bu kalıpla ne yapabilirsin?", başlangıç setleri, yeni gelenler, seçili fırsatlar, hesaplayıcılar, akademi, ACG ile üretenler |
+| `#/` | Ana sayfa: hero, kategori keşfi, öne çıkanlar, "Bu kalıpla ne yapabilirsin?", başlangıç setleri, yeni gelenler, seçili fırsatlar, ACG ile üretenler |
 | `#/kategori/kaliplar` | Listeleme: sol filtre (kategori, kullanım alanı, tema, boyut, fiyat, stok, yeni, çok satan), sıralama, aktif filtre çipleri, mobilde alttan açılan filtre paneli |
-| `#/kategori/{hammaddeler, setler, mum, sabun, epoksi, kokulu-tas, boyama, dekorasyon, yeni-gelenler, kampanyalar}` | Aynı listeleme şablonu |
+| `#/kategori/{hammaddeler, setler, mum, kokulu-tas, boyama, dekorasyon, yeni-gelenler, kampanyalar}` | Aynı listeleme şablonu |
 | `#/arama?q=mum` | Arama sonuçları (+ header'daki arama paneli: son/popüler aramalar, kategori ve ürün önerileri) |
 | `#/urun/{slug}` | Ürün detay: galeri, satın alma alanı, sekmeler (mobilde akordeon), "Bu ürünle ne yapabilirsin?", tamamlayıcı ve benzer ürünler, mobilde yapışkan sepet barı |
-| `#/rehber/{slug}` | Akademi rehberi + rehberde kullanılan ürünler |
 
 ## Yapı
 
@@ -62,6 +61,6 @@ Kodda `PLACEHOLDER` olarak işaretlendi:
 
 ## V2'ye bırakılanlar
 
-Ödeme, üyelik/giriş, sipariş, kargo entegrasyonu, ERP/stok API, kampanya motoru, admin paneli, gerçek yorum sistemi, Instagram API. Hesaplayıcılar basit yaklaşık formüllerle çalışan bir arayüz önizlemesidir.
+Ödeme, üyelik/giriş, sipariş, kargo entegrasyonu, ERP/stok API, kampanya motoru, admin paneli, gerçek yorum sistemi, Instagram API.
 
 Üretimde, 4.000+ ürün ve SEO için sunucu tarafı render (ör. Next.js) ve bir arama servisi (Meilisearch, Algolia vb.) önerilir; bileşenler ve veri modeli buna göre ayrıldı (filtre durumu URL'de, arama `lib/search.ts` arayüzünün arkasında).

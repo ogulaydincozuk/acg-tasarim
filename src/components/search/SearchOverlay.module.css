@@ -309,8 +309,7 @@
   color: var(--color-text-secondary);
 }
 
-.sugIcon,
-.sugLead {
+.sugIcon {
   width: 16px;
   height: 16px;
   flex: none;

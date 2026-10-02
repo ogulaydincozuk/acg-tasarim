@@ -19,11 +19,11 @@ export function StarterSets() {
           description="İlk üretimin için gereken her şey tek kutuda; adım adım rehber kartıyla."
           action={{ label: 'Tüm setler', to: '/kategori/setler' }}
         />
-        <ul className={`${s.grid} no-scrollbar`}>
+        <ul className={`${s.grid} ${STARTER_SETS.length <= 2 ? s.wide : ''} no-scrollbar`}>
           {STARTER_SETS.map((set) => (
             <li key={set.id} className={s.card}>
               <Link to={`/urun/${set.slug}`} className={s.media} tabIndex={-1} aria-hidden="true">
-                <Img image={set.image} alt="" ratio={4 / 3} sizes="(min-width: 1024px) 24vw, (min-width: 640px) 45vw, 80vw" maxWidth={860} />
+                <Img image={set.image} alt="" ratio={4 / 3} sizes="(min-width: 1024px) 28vw, (min-width: 640px) 45vw, 80vw" maxWidth={860} />
               </Link>
               <div className={s.body}>
                 <p className={s.meta}>

@@ -1,7 +1,6 @@
-import { GUIDES } from '../data/content';
 import { PRODUCTS } from '../data/products';
 import { CATEGORY_LABEL, USAGE_LABEL, USAGE_ORDER } from '../data/taxonomy';
-import type { Guide, MainCategory, Product, Usage } from '../data/types';
+import type { MainCategory, Product, Usage } from '../data/types';
 import { normalizeTr } from './format';
 
 /**
@@ -11,8 +10,6 @@ import { normalizeTr } from './format';
 
 /** Kullanıcının yazdığı terimleri katalog diline genişletir */
 const SYNONYMS: Record<string, string[]> = {
-  resin: ['epoksi', 'recine'],
-  recine: ['epoksi'],
   parfum: ['esans'],
   koku: ['esans', 'kokulu'],
   boya: ['pigment', 'boya', 'mika'],
@@ -132,15 +129,6 @@ export function searchSuggestions(query: string): Suggestion[] {
   }
 
   return out.slice(0, 5);
-}
-
-export function searchGuides(query: string): Guide[] {
-  const tokens = normalizeTr(query).split(' ').filter((t) => t.length >= 3);
-  if (!tokens.length) return [];
-  return GUIDES.filter((g) => {
-    const hay = normalizeTr(`${g.title} ${USAGE_LABEL[g.usage]}`);
-    return tokens.every((t) => expand(t).some((v) => hay.includes(v)));
-  }).slice(0, 2);
 }
 
 /** Eşleşen metni <mark> ile vurgulamak için parçalara ayırır */

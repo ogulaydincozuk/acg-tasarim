@@ -1,4 +1,4 @@
-import type { CalculatorMeta, Creation, Guide, UseCase, Usage } from './types';
+import type { Creation, UseCase, Usage } from './types';
 
 /* --------------------------------------------------------------------------
    Mağaza bilgileri
@@ -40,15 +40,6 @@ export const USE_CASES: Record<Usage, UseCase> = {
     level: 'Kolay',
     materialIds: ['p-106', 'p-102', 'p-108'],
   },
-  sabun: {
-    usage: 'sabun',
-    title: 'Sabun',
-    summary: 'Gliserin bazını erit, mika ve esans ekle; birkaç saat içinde kullanıma hazır kalıp sabunlar.',
-    image: 'soapMarble',
-    duration: '≈ 1 saat + 3 saat donma',
-    level: 'Kolay',
-    materialIds: ['p-103', 'p-105', 'p-102'],
-  },
   dekorasyon: {
     usage: 'dekorasyon',
     title: 'Dekoratif obje',
@@ -57,15 +48,6 @@ export const USE_CASES: Record<Usage, UseCase> = {
     duration: '≈ 1 saat + 24 saat kuruma',
     level: 'Orta',
     materialIds: ['p-107', 'p-106', 'p-108'],
-  },
-  epoksi: {
-    usage: 'epoksi',
-    title: 'Epoksi',
-    summary: 'Reçineyi 2:1 oranında karıştır, mika ve kuru çiçekle katmanla; 24–48 saatte kürlenir.',
-    image: 'resinGeode',
-    duration: '≈ 1 saat + 48 saat kürlenme',
-    level: 'Orta',
-    materialIds: ['p-104', 'p-105'],
   },
   boyama: {
     usage: 'boyama',
@@ -81,68 +63,8 @@ export const USE_CASES: Record<Usage, UseCase> = {
 /** Ana sayfadaki vitrin kalıbı ve gösterilen senaryolar */
 export const SHOWCASE = {
   productId: 'p-006',
-  usages: ['mum', 'kokulu-tas', 'sabun', 'dekorasyon'] as Usage[],
+  usages: ['mum', 'kokulu-tas', 'dekorasyon'] as Usage[],
 };
-
-/* --------------------------------------------------------------------------
-   Akademi — rehberler ürünlere bağlı
-   -------------------------------------------------------------------------- */
-export const GUIDES: Guide[] = [
-  {
-    id: 'g-01',
-    slug: 'mum-yapim-rehberi',
-    title: 'Mum yapım rehberi: ilk dökümden kusursuz yüzeye',
-    excerpt: 'Doğru wax seçimi, sıcaklık kontrolü, esans oranı ve kalıptan çıkarma — adım adım.',
-    image: 'candleJarsPeach',
-    readTime: '8 dk',
-    level: 'Başlangıç',
-    usage: 'mum',
-    productIds: ['p-101', 'p-102', 'p-006', 'p-005'],
-  },
-  {
-    id: 'g-02',
-    slug: 'silikon-kalip-secme-rehberi',
-    title: 'Silikon kalıp seçme rehberi',
-    excerpt: 'Shore sertliği, ısı dayanımı ve detay seviyesine göre doğru kalıbı seç.',
-    image: 'siliconeMoldPink',
-    readTime: '5 dk',
-    level: 'Başlangıç',
-    usage: 'mum',
-    productIds: ['p-001', 'p-002', 'p-003'],
-  },
-  {
-    id: 'g-03',
-    slug: 'epoksiye-baslangic',
-    title: 'Epoksiye başlangıç',
-    excerpt: 'Karışım oranı, kabarcık kontrolü ve güvenli çalışma alanı hazırlığı.',
-    image: 'resinCoasters',
-    readTime: '7 dk',
-    level: 'Başlangıç',
-    usage: 'epoksi',
-    productIds: ['p-104', 'p-012', 'p-105'],
-  },
-  {
-    id: 'g-04',
-    slug: 'kokulu-tas-yapimi',
-    title: 'Kokulu taş yapımı ve boyama',
-    excerpt: 'Su oranı, esansın kalıcılığı ve pastel boyamayla zarif sonuçlar.',
-    image: 'leafStones',
-    readTime: '6 dk',
-    level: 'Başlangıç',
-    usage: 'kokulu-tas',
-    productIds: ['p-106', 'p-001', 'p-108'],
-  },
-];
-
-/* --------------------------------------------------------------------------
-   Hesaplayıcılar — V1'de UI önizlemesi (basit yaklaşık formüller)
-   -------------------------------------------------------------------------- */
-export const CALCULATORS: CalculatorMeta[] = [
-  { id: 'maliyet', name: 'Mum maliyet hesaplayıcı', description: 'Wax, esans ve fitil maliyetinden adet başı maliyet.' },
-  { id: 'esans', name: 'Esans hesaplayıcı', description: 'Wax miktarı ve orana göre gereken esans.' },
-  { id: 'wax', name: 'Wax miktarı hesaplayıcı', description: 'Kalıp hacmi ve adede göre gereken wax.' },
-  { id: 'satis', name: 'Satış fiyatı hesaplayıcı', description: 'Maliyet, kâr marjı ve KDV ile satış fiyatı.' },
-];
 
 /* --------------------------------------------------------------------------
    ACG ile Üretenler
@@ -151,10 +73,10 @@ export const CALCULATORS: CalculatorMeta[] = [
    -------------------------------------------------------------------------- */
 export const CREATIONS: Creation[] = [
   { id: 'c-1', image: 'jarCandleButterfly', productId: 'p-101', isPlaceholder: true },
-  { id: 'c-2', image: 'soapMarble', productId: 'p-103', isPlaceholder: true },
+  { id: 'c-2', image: 'vaseCollection', productId: 'p-107', isPlaceholder: true },
   { id: 'c-3', image: 'donutVaseFlowers', productId: 'p-003', isPlaceholder: true },
   { id: 'c-4', image: 'diffuser', productId: 'p-102', isPlaceholder: true },
-  { id: 'c-5', image: 'resinFlowerTray', productId: 'p-010', isPlaceholder: true },
+  { id: 'c-5', image: 'watercolorFlowers', productId: 'p-108', isPlaceholder: true },
   { id: 'c-6', image: 'concreteVessels', productId: 'p-009', isPlaceholder: true },
   { id: 'c-7', image: 'jarCandleLeaves', productId: 'p-102', isPlaceholder: true },
 ];
@@ -162,4 +84,4 @@ export const CREATIONS: Creation[] = [
 /* --------------------------------------------------------------------------
    Arama
    -------------------------------------------------------------------------- */
-export const POPULAR_SEARCHES = ['bubble kalıp', 'soya wax', 'epoksi reçine', 'vazo kalıbı', 'esans', 'başlangıç seti'];
+export const POPULAR_SEARCHES = ['bubble kalıp', 'soya wax', 'taş tozu', 'vazo kalıbı', 'esans', 'başlangıç seti'];

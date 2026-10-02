@@ -59,7 +59,10 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   const [cart, setCart] = useState<CartLine[]>(() =>
     readStorage<CartLine[]>(KEYS.cart, []).filter((l) => PRODUCT_BY_ID.has(l.id)),
   );
-  const [favorites, setFavorites] = useState<string[]>(() => readStorage<string[]>(KEYS.fav, []));
+  // Katalogdan kaldırılmış ürünler (ör. eski sabun/epoksi) saklı favorilerden düşer
+  const [favorites, setFavorites] = useState<string[]>(() =>
+    readStorage<string[]>(KEYS.fav, []).filter((id) => PRODUCT_BY_ID.has(id)),
+  );
   const [recentSearches, setRecent] = useState<string[]>(() => readStorage<string[]>(KEYS.recent, []));
   const [searchOpen, setSearchOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);

@@ -19,7 +19,7 @@ export function CategoryDiscovery() {
           {CRAFT_CATEGORIES.map((c, i) => (
             <li key={c.usage}>
               <Link to={`/kategori/${c.usage}`} className={s.card}>
-                <Img image={c.image} alt="" ratio={3 / 4} sizes="(min-width: 1024px) 16vw, (min-width: 640px) 30vw, 46vw" className={s.img} priority={i < 3} maxWidth={860} />
+                <Img image={c.image} alt="" ratio={4 / 5} sizes="(min-width: 640px) 25vw, 46vw" className={s.img} priority={i < 3} maxWidth={860} />
                 <span className={s.label}>
                   <span className={s.name}>{c.name}</span>
                   <ArrowUpRight aria-hidden="true" className={s.icon} />

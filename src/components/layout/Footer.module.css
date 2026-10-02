@@ -49,7 +49,7 @@
 
 .grid {
   display: grid;
-  grid-template-columns: 1.5fr repeat(4, 1fr) 1.2fr;
+  grid-template-columns: 1.5fr repeat(3, 1fr) 1.2fr;
   gap: var(--space-8);
   padding-block: var(--space-16) var(--space-12);
 }

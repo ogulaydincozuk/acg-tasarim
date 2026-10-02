@@ -10,7 +10,6 @@ import { QuickView } from './components/product/QuickView';
 import { HomePage } from './pages/HomePage';
 import { ListingPage } from './pages/ListingPage';
 import { ProductPage } from './pages/ProductPage';
-import { GuidePage } from './pages/GuidePage';
 import { FavoritesPage, InfoPage } from './pages/SimplePages';
 import { NotFoundPage } from './pages/NotFoundPage';
 
@@ -71,7 +70,6 @@ export default function App() {
             <Route path="kategori/:slug" element={<ListingPage mode="category" />} />
             <Route path="arama" element={<ListingPage mode="search" />} />
             <Route path="urun/:slug" element={<ProductPage />} />
-            <Route path="rehber/:slug" element={<GuidePage />} />
             <Route path="favoriler" element={<FavoritesPage />} />
             <Route path="hesap" element={<InfoPage slugOverride="hesap" />} />
             <Route path="sayfa/:slug" element={<InfoPage />} />

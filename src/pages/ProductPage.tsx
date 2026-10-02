@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { ArrowRight, Bell, Calculator, Check, Heart, RotateCcw, ShieldCheck, Truck } from 'lucide-react';
+import { Bell, Check, Heart, RotateCcw, ShieldCheck, Truck } from 'lucide-react';
 import { STORE, USE_CASES } from '../data/content';
 import { PRODUCTS, PRODUCT_BY_SLUG, getProducts } from '../data/products';
 import { CATEGORY_LABEL, USAGE_LABEL } from '../data/taxonomy';
@@ -31,7 +31,7 @@ function similarProducts(p: Product) {
 export function ProductPage() {
   const { slug = '' } = useParams();
   const product = PRODUCT_BY_SLUG.get(slug);
-  usePageTitle(product?.name);
+  usePageTitle(product ? product.name : 'Sayfa bulunamadı');
   if (!product) return <NotFoundPage />;
   // Ürün değişince yerel durum (adet, sekme) sıfırlansın
   return <ProductView key={product.id} product={product} />;
@@ -193,17 +193,6 @@ function ProductView({ product: p }: { product: Product }) {
                 Güvenli ödeme · 3D Secure
               </li>
             </ul>
-
-            {p.usage.includes('mum') && (
-              <Link to="/#hesaplayicilar" className={s.calcLink}>
-                <Calculator strokeWidth={1.6} aria-hidden="true" />
-                <span>
-                  <strong>Ne kadar wax gerekir?</strong>
-                  <span>Kalıp hacmine göre wax ve esans miktarını hesapla</span>
-                </span>
-                <ArrowRight aria-hidden="true" />
-              </Link>
-            )}
           </div>
         </div>
 

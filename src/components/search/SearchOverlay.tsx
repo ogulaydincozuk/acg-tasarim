@@ -1,14 +1,14 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { ArrowRight, ArrowUpRight, BookOpen, History, Search, TrendingUp, X } from 'lucide-react';
+import { ArrowRight, ArrowUpRight, History, Search, TrendingUp, X } from 'lucide-react';
 import { POPULAR_SEARCHES } from '../../data/content';
 import { getProducts } from '../../data/products';
 import { CRAFT_CATEGORIES } from '../../data/taxonomy';
 import { useShop } from '../../context/ShopContext';
 import { useBodyLock, useDialog } from '../../hooks/useUi';
 import { cx, formatPrice } from '../../lib/format';
-import { highlightParts, searchGuides, searchProducts, searchSuggestions } from '../../lib/search';
+import { highlightParts, searchProducts, searchSuggestions } from '../../lib/search';
 import { Img } from '../ui/Img';
 import s from './SearchOverlay.module.css';
 
@@ -50,7 +50,6 @@ export function SearchOverlay() {
   const q = query.trim();
   const products = useMemo(() => (q.length >= 2 ? searchProducts(q) : []), [q]);
   const suggestions = useMemo(() => searchSuggestions(q), [q]);
-  const guides = useMemo(() => searchGuides(q), [q]);
   const trending = useMemo(() => getProducts(TRENDING_IDS), []);
 
   /** Ok tuşlarıyla gezilebilen bağlantı listesi (öneriler + ürünler + tümünü gör) */
@@ -228,21 +227,6 @@ export function SearchOverlay() {
                             </span>
                             <span className={s.sugCount}>{sug.count} ürün</span>
                             <ArrowUpRight aria-hidden="true" className={s.sugIcon} />
-                          </Link>
-                        </li>
-                      ))}
-                    </ul>
-                  </section>
-                )}
-                {guides.length > 0 && (
-                  <section className={s.block}>
-                    <h3 className={s.heading}>Rehberler</h3>
-                    <ul className={s.suggestions}>
-                      {guides.map((g) => (
-                        <li key={g.id}>
-                          <Link to={`/rehber/${g.slug}`} className={s.option} onClick={close}>
-                            <BookOpen aria-hidden="true" className={s.sugLead} />
-                            <span>{g.title}</span>
                           </Link>
                         </li>
                       ))}

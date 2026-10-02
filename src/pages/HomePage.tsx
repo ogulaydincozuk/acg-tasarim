@@ -7,15 +7,13 @@ import { CategoryDiscovery } from '../sections/CategoryDiscovery';
 import { UseCases } from '../sections/UseCases';
 import { StarterSets } from '../sections/StarterSets';
 import { Deals, NewArrivals } from '../sections/NewAndDeals';
-import { Calculators } from '../sections/Calculators';
-import { Academy } from '../sections/Academy';
 import { Creations } from '../sections/Creations';
 import { usePageTitle } from '../hooks/usePageTitle';
 
 /**
  * Ana sayfa akışı (rakip analizi önerisine göre):
  * değer önerisi → kategori keşfi → öne çıkanlar → "ne yapabilirsin?" →
- * başlangıç setleri → yeni gelenler / fırsatlar → hesaplayıcılar → akademi → topluluk
+ * başlangıç setleri → yeni gelenler / fırsatlar → topluluk
  */
 export function HomePage() {
   usePageTitle();
@@ -47,8 +45,6 @@ export function HomePage() {
       <StarterSets />
       <NewArrivals />
       <Deals />
-      <Calculators />
-      <Academy />
       <Creations />
     </>
   );

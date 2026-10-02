@@ -121,7 +121,8 @@ export function ListingPage({ mode }: { mode: 'category' | 'search' }) {
   useEffect(() => setDraft(query), [query]);
 
   const title = mode === 'search' ? (query ? `“${query}” için sonuçlar` : 'Arama') : def?.title;
-  usePageTitle(title);
+  // Bilinmeyen slug'da 404 başlığını ezmemek için aynı başlık verilir
+  usePageTitle(def ? title : 'Sayfa bulunamadı');
 
   if (!def) return <NotFoundPage />;
 

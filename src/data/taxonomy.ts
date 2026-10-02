@@ -2,14 +2,12 @@ import type { Badge, CraftCategory, MainCategory, SizeGroup, Usage } from './typ
 
 export const USAGE_LABEL: Record<Usage, string> = {
   mum: 'Mum',
-  sabun: 'Sabun',
   'kokulu-tas': 'Kokulu Taş',
-  epoksi: 'Epoksi',
   boyama: 'Boyama',
   dekorasyon: 'Dekorasyon',
 };
 
-export const USAGE_ORDER: Usage[] = ['mum', 'sabun', 'kokulu-tas', 'epoksi', 'boyama', 'dekorasyon'];
+export const USAGE_ORDER: Usage[] = ['mum', 'kokulu-tas', 'boyama', 'dekorasyon'];
 
 export const CATEGORY_LABEL: Record<MainCategory, string> = {
   kaliplar: 'Kalıplar',
@@ -29,7 +27,7 @@ export const SIZE_LABEL: Record<SizeGroup, string> = {
   buyuk: 'Büyük (12 cm +)',
 };
 
-export const THEMES = ['Minimal', 'Geometrik', 'Doğa & Botanik', 'Figür', 'Harf & Rakam', 'Mutfak'];
+export const THEMES = ['Minimal', 'Geometrik', 'Doğa & Botanik', 'Figür', 'Harf & Rakam'];
 
 export const PRICE_RANGES: { id: string; label: string; min: number; max: number }[] = [
   { id: '0-250', label: '250 TL altı', min: 0, max: 250 },
@@ -38,12 +36,10 @@ export const PRICE_RANGES: { id: string; label: string; min: number; max: number
   { id: '1000-99999', label: '1.000 TL üzeri', min: 1000, max: 99999 },
 ];
 
-/** "Ne üretmek istiyorsun?" — 6 üretim kategorisi */
+/** "Ne üretmek istiyorsun?" — üretim kategorileri */
 export const CRAFT_CATEGORIES: CraftCategory[] = [
   { usage: 'mum', name: 'Mum', hint: 'Kalıp, wax, fitil, esans', image: 'archCandle' },
-  { usage: 'sabun', name: 'Sabun', hint: 'Sabun bazı, kalıp, pigment', image: 'soapStackWhite' },
   { usage: 'kokulu-tas', name: 'Kokulu Taş', hint: 'Taş tozu, kalıp, esans', image: 'leafStones' },
-  { usage: 'epoksi', name: 'Epoksi', hint: 'Reçine, kalıp, mika', image: 'resinCoasters' },
   { usage: 'boyama', name: 'Boyama', hint: 'Boya, fırça, pigment', image: 'watercolorFlowers' },
   { usage: 'dekorasyon', name: 'Dekorasyon', hint: 'Vazo, tepsi, mumluk', image: 'vaseCollection' },
 ];
@@ -77,9 +73,7 @@ export const MAIN_NAV: NavItem[] = [
           title: 'Kullanım alanına göre',
           links: [
             { label: 'Mum kalıpları', to: '/kategori/kaliplar?kullanim=mum' },
-            { label: 'Sabun kalıpları', to: '/kategori/kaliplar?kullanim=sabun' },
             { label: 'Kokulu taş kalıpları', to: '/kategori/kaliplar?kullanim=kokulu-tas' },
-            { label: 'Epoksi kalıpları', to: '/kategori/kaliplar?kullanim=epoksi' },
             { label: 'Dekor & beton kalıpları', to: '/kategori/kaliplar?kullanim=dekorasyon' },
           ],
         },
@@ -104,9 +98,9 @@ export const MAIN_NAV: NavItem[] = [
         },
       ],
       promo: {
-        title: 'Silikon kalıp seçme rehberi',
-        text: 'Shore sertliği, ısı dayanımı ve kullanım alanına göre doğru kalıbı seç.',
-        to: '/rehber/silikon-kalip-secme-rehberi',
+        title: 'Yeni gelen kalıplar',
+        text: 'Vazo, mumluk ve botanik formlarla koleksiyona yeni eklenenler.',
+        to: '/kategori/kaliplar?yeni=1',
         image: 'siliconeMoldPink',
       },
     },
@@ -120,8 +114,7 @@ export const MAIN_NAV: NavItem[] = [
           title: 'Bazlar',
           links: [
             { label: 'Wax & mum bazları', to: '/arama?q=wax' },
-            { label: 'Sabun bazları', to: '/kategori/hammaddeler?kullanim=sabun' },
-            { label: 'Epoksi reçineler', to: '/kategori/hammaddeler?kullanim=epoksi' },
+            { label: 'Jesmonite', to: '/arama?q=jesmonite' },
             { label: 'Taş tozu', to: '/arama?q=taş tozu' },
           ],
         },
@@ -137,23 +130,20 @@ export const MAIN_NAV: NavItem[] = [
           title: 'Üretime göre',
           links: [
             { label: 'Mum hammaddeleri', to: '/kategori/hammaddeler?kullanim=mum' },
-            { label: 'Sabun hammaddeleri', to: '/kategori/hammaddeler?kullanim=sabun' },
             { label: 'Kokulu taş hammaddeleri', to: '/kategori/hammaddeler?kullanim=kokulu-tas' },
             { label: 'Tüm hammaddeler', to: '/kategori/hammaddeler' },
           ],
         },
       ],
       promo: {
-        title: 'Wax miktarını hesapla',
-        text: 'Kalıp hacmini gir, ihtiyacın olan wax ve esans miktarını gör.',
-        to: '/#hesaplayicilar',
+        title: 'Başlangıç setleri',
+        text: 'Wax, esans, fitil ve kalıp — ilk üretimin için gereken her şey tek kutuda.',
+        to: '/kategori/setler',
         image: 'waxPastilles',
       },
     },
   },
   { label: 'Mum', to: '/kategori/mum' },
-  { label: 'Sabun', to: '/kategori/sabun' },
-  { label: 'Epoksi', to: '/kategori/epoksi' },
   { label: 'Setler', to: '/kategori/setler' },
   { label: 'Yeni Gelenler', to: '/kategori/yeni-gelenler' },
   { label: 'Kampanyalar', to: '/kategori/kampanyalar', accent: true },
@@ -185,14 +175,14 @@ export const LISTINGS: Record<string, ListingDef> = {
   kaliplar: {
     slug: 'kaliplar',
     title: 'Kalıplar',
-    description: 'Mum, sabun, kokulu taş ve epoksi için yüksek detaylı silikon kalıplar.',
+    description: 'Mum, kokulu taş ve dekoratif objeler için yüksek detaylı silikon kalıplar.',
     category: 'kaliplar',
     quickLinks: usageQuickLinks('/kategori/kaliplar'),
   },
   hammaddeler: {
     slug: 'hammaddeler',
     title: 'Hammaddeler',
-    description: 'Wax, sabun bazı, reçine, esans ve pigmentler — üretimin temel malzemeleri.',
+    description: 'Wax, taş tozu, jesmonite, esans ve pigmentler — üretimin temel malzemeleri.',
     category: 'hammaddeler',
     quickLinks: USAGE_ORDER.map((u) => ({ label: USAGE_LABEL[u], to: `/kategori/hammaddeler?kullanim=${u}` })),
   },

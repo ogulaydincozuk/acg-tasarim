@@ -136,8 +136,7 @@ textarea {
 }
 
 .section + .section--band,
-.section--band + .section,
-.section + .section--divided {
+.section--band + .section {
   padding-top: var(--space-section);
 }
 

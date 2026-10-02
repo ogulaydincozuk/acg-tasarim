@@ -35,15 +35,6 @@ const COLUMNS: { title: string; links: { label: string; to: string }[] }[] = [
       { label: 'Özel kalıp üretimi', to: '/sayfa/ozel-kalip' },
     ],
   },
-  {
-    title: 'Üretim & Eğitim',
-    links: [
-      { label: 'Akademi', to: '/#akademi' },
-      { label: 'Hesaplayıcılar', to: '/#hesaplayicilar' },
-      { label: 'Mum yapım rehberi', to: '/rehber/mum-yapim-rehberi' },
-      { label: 'Epoksiye başlangıç', to: '/rehber/epoksiye-baslangic' },
-    ],
-  },
 ];
 
 /* PLACEHOLDER: güven mesajları gerçek hizmet koşullarıyla teyit edilmeli */
@@ -89,7 +80,7 @@ export function Footer() {
         <div className={`container ${s.grid}`}>
           <div className={s.brand}>
             <Logo variant="badge" />
-            <p>Kalıp, hammadde ve üretim bilgisi tek yerde — mum, sabun, kokulu taş ve epoksi üreticileri için.</p>
+            <p>Kalıp, hammadde ve üretim bilgisi tek yerde — mum, kokulu taş ve dekoratif obje üreticileri için.</p>
             <ul className={s.social}>
               {SOCIAL.map(({ label, icon: Icon, href }) => (
                 <li key={label}>

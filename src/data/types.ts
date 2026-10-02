@@ -1,7 +1,7 @@
 import type { ImageKey } from './images';
 
 /** Kullanım alanı — filtrelerin, aramanın ve "Ne yapabilirsin?" akışının ortak dili. */
-export type Usage = 'mum' | 'sabun' | 'kokulu-tas' | 'epoksi' | 'boyama' | 'dekorasyon';
+export type Usage = 'mum' | 'kokulu-tas' | 'boyama' | 'dekorasyon';
 
 export type MainCategory = 'kaliplar' | 'hammaddeler' | 'setler';
 
@@ -72,24 +72,6 @@ export interface UseCase {
   duration: string;
   level: string;
   materialIds: string[];
-}
-
-export interface Guide {
-  id: string;
-  slug: string;
-  title: string;
-  excerpt: string;
-  image: ImageKey;
-  readTime: string;
-  level: string;
-  usage: Usage;
-  productIds: string[];
-}
-
-export interface CalculatorMeta {
-  id: 'maliyet' | 'esans' | 'wax' | 'satis';
-  name: string;
-  description: string;
 }
 
 export interface Creation {

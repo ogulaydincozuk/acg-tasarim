@@ -8,9 +8,10 @@ import { useMediaQuery } from '../hooks/useUi';
 import s from './Hero.module.css';
 
 export function Hero() {
-  // Mobil/tablet: kolaj yerine tek, yatay kadraja uygun görsel ve onunla eşleşen ürün etiketi
+  // Mobil/tablet: kolaj yerine tek, yatay kadraja uygun görsel.
+  // Ana görsel kalıp + ondan çıkan ürünü birlikte gösterir (ACG kalıp üreticisidir, mum satıcısı değil).
   const compact = useMediaQuery('(max-width: 1023px)');
-  const tagged = PRODUCT_BY_ID.get(compact ? 's-01' : 'p-005')!;
+  const tagged = PRODUCT_BY_ID.get('p-001')!;
   return (
     <section className={s.hero} aria-labelledby="hero-title">
       <div className={`container ${s.grid}`}>
@@ -44,11 +45,14 @@ export function Hero() {
         <div className={s.visual}>
           <span className={s.shape} aria-hidden="true" />
           <figure className={s.main}>
-            {compact ? (
-              <Img image="candleJarsPeach" alt="Şeftali zeminde soya wax ile dökülmüş kavanoz mumlar" ratio={16 / 10} sizes="100vw" priority maxWidth={1400} />
-            ) : (
-              <Img image="archCandle" alt="Gökkuşağı kemer kalıbıyla dökülmüş krem rengi dekoratif mum" ratio={4 / 5} sizes="34vw" priority maxWidth={1080} />
-            )}
+            <Img
+              image="leafStones"
+              alt="Açık mavi silikon yaprak kalıbı ve kalıptan çıkmış beyaz yaprak formlu ürünler, yanında mum"
+              ratio={compact ? 16 / 10 : 4 / 5}
+              sizes={compact ? '100vw' : '34vw'}
+              priority
+              maxWidth={compact ? 1400 : 1080}
+            />
             <Link to={`/urun/${tagged.slug}`} className={s.tag}>
               <span className={s.tagDot} aria-hidden="true" />
               <span className={s.tagText}>

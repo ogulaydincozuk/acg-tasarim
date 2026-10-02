@@ -7,3 +7,5 @@ dist
 # (rakip ekran görüntüleri, analiz raporu, ham logo dosyası)
 GENEL BENİM İŞİM/
 .claude/
+# Kişisel yapılacaklar listesi — depoya gitmez
+SITEYE-EKLENECEKLER.txt

@@ -120,7 +120,7 @@
 
 .tag {
   position: absolute;
-  left: 16px;
+  right: 16px;
   bottom: 16px;
   display: flex;
   align-items: center;
@@ -187,12 +187,10 @@
     display: none;
   }
 
-  /* görselin boş (üst) alanına */
+  /* mum ve kalıp görünür kalsın diye sağ alt köşede */
   .tag {
-    top: 12px;
-    left: 12px;
-    right: auto;
-    bottom: auto;
+    right: 12px;
+    bottom: 12px;
     max-width: calc(100% - 24px);
   }
 }
@@ -224,8 +222,8 @@
   }
 
   .tag {
-    top: 10px;
-    left: 10px;
+    right: 10px;
+    bottom: 10px;
     max-width: calc(100% - 20px);
     padding: 8px 10px;
   }
